@@ -1,0 +1,36 @@
+{% extends '@SonataAdmin/CRUD/action.html.twig' %}
+
+{% block title %}{{ 'title_select_provider'|trans({}, 'SonataMediaBundle') }}{% endblock %}
+
+{% block content %}
+    <div class="box box-solid">
+        <div class="box-header">
+            <h3 class="box-title">
+                {{ block('title') }}
+            </h3>
+        </div>
+        <div class="box-body">
+            {% for code, provider in providers %}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    {% if provider.multiUpload is defined and provider.multiUpload == true %}
+                        {% set path = admin.generateUrl('multi_upload', {provider: provider.name}) %}
+                    {% else %}
+                        {% set path = admin.generateUrl('create', {provider: provider.name}) %}
+                    {% endif %}
+                    <a href="{{ path }}" class="btn btn-app btn-block">
+                        {% if not provider.providerMetadata.image %}
+                            <i class="{{ provider.providerMetadata.option('class') }}"></i>
+                        {% else %}
+                            <img src="{{ asset(provider.providerMetadata.image) }}" style="max-height: 20px; max-width: 100px;"/>
+                            <br/>
+                        {% endif %}
+                        {{ provider.providerMetadata.title|trans({}, provider.providerMetadata.domain|default('SonataMediaBundle')) }}
+                    </a>
+                </div>
+            {% else %}
+                <span class="alert alert-info">{{ 'no_provider_available'|trans({}, 'SonataMediaBundle') }}</span>
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,4 @@
+services:
+    SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController:
+        arguments: [ '@sonata.media.manager.media']
+        tags: ['controller.service_arguments']

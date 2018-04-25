@@ -1,0 +1,139 @@
+{% extends '@SonataAdmin/CRUD/action.html.twig' %}
+
+{% block title %}
+    {{ 'multi_upload.title'|trans({}, 'SonataMediaBundle') }}
+{% endblock %}
+
+{% block content %}
+    <div class="box box-solid">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                        {{ form_start(form, {attr:{ id : form.vars.id }}) }}
+                            <div class="dm-uploader {{ form.vars.id }}" style="height: 400px; border: #c5c5c5 dashed 5px;">
+                                <div class="col-md-4 col-md-push-4">
+                                    <h4 class="text-muted text-center" style="margin-top:150px;">
+                                        <span class="mb-5">Drag &amp; drop files here</span>
+                                        <a class="btn btn-link">
+                                            <span>Open the file Browser</span>
+                                            {{ form_widget(form.binaryContent, {label: false}) }}
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                        <ul class="list-group list-unstyled" id="files" style="height: 400px; overflow: auto;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('div.{{ form.vars.id }}').dmUploader({
+                url: '{{ form.vars.action }}',
+                maxFileSize: 30000000000,
+                onDragEnter: function () {
+                    $(this).css({'background-color': 'lightgray'});
+                },
+                onDragLeave: function () {
+                    $(this).css({'background-color': '#ffffff'});
+                },
+                onNewFile: function (id, file) {
+                    addFile(id, file);
+                },
+                onBeforeUpload: function (id) {
+                    setStatus(id, 'uploading', 'Uploading...');
+                    setProgress(id, 0, '', true);
+                },
+                onUploadCanceled: function (id) {
+                    setStatus(id, 'warning', 'Canceled by User');
+                    setProgress(id, 0, 'warning', false);
+                },
+                onUploadProgress: function (id, percent) {
+                    setProgress(id, percent);
+                },
+                onUploadSuccess: function (id, data) {
+                    setStatus(id, 'success', 'Upload Complete');
+                    setProgress(id, 100, 'success', false);
+                    setImage(id, data.path);
+                    setEditUrl(id, data.edit);
+                },
+                onUploadError: function (id, xhr, status, message) {
+                    setStatus(id, 'danger', message);
+                    setProgress(id, 0, 'danger', false);
+                },
+            });
+        });
+
+        function addFile(id, file) {
+            var template = $('#files-template').text();
+            var $template = $(template);
+            $template.find('a.edit-url').text(file.name);
+            $template.prop('id', 'uploaderFile' + id);
+            $template.data('file-id', id);
+
+            $('#files').prepend($template);
+        }
+
+        function setStatus(id, status, message) {
+            $('#uploaderFile' + id).find('span').html(message).prop('class', 'status text-' + status);
+        }
+
+        function setImage(id, path) {
+            $('#uploaderFile' + id).find('canvas').css('background-image', "url('"+path+"')");
+        }
+
+        function setEditUrl(id, url) {
+            $('#uploaderFile' + id).find('a.edit-url').attr('href', url);
+        }
+
+        function setProgress(id, percent, color, active) {
+            color = (typeof color === 'undefined' ? false : color);
+            active = (typeof active === 'undefined' ? true : active);
+
+            var bar = $('#uploaderFile' + id).find('div.progress-bar');
+
+            bar.width(percent + '%').attr('aria-valuenow', percent);
+            bar.toggleClass('progress-bar-striped progress-bar-animated', active);
+
+            if (percent === 0) {
+                bar.html('');
+            } else {
+                bar.html(percent + '%');
+            }
+
+            if (color !== false) {
+                bar.removeClass('bg-success bg-info bg-warning bg-danger');
+                bar.addClass('bg-' + color);
+            }
+        }
+    </script>
+
+    <script type="text/html" id="files-template">
+        <li class="list-group-item">
+            <div class="media-body mb-1">
+                <div class="col-md-2">
+                    <canvas width="100px" height="60px" style="background-size: contain; background-position: center; background-repeat: no-repeat;"></canvas>
+                </div>
+                <div class="col-md-10">
+                    <p class="mb-2">
+                        <strong><a class="edit-url" href="#"></a></strong> - Status: <span class="text-muted">Waiting</span>
+                    </p>
+                    <div class="progress mb-2">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </script>
+{% endblock %}
+
+{% block form %}
+{% endblock %}
