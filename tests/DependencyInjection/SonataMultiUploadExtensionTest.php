@@ -1,8 +1,9 @@
 <?php
 
-namespace SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection;
+namespace SilasJoisten\Sonata\MultiUploadBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection\SonataMultiUploadExtension;
 
 class SonataMultiUploadExtensionTest extends AbstractExtensionTestCase
 {

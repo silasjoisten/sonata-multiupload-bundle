@@ -9,10 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class MultiUploadCompilerPassTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function process(): void
+    public function testProcess(): void
     {
         $definition = $this->createMock(Definition::class);
 

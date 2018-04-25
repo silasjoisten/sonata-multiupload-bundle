@@ -13,7 +13,7 @@ class MultiUploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('context', HiddenType::class, ['data' => $options['context']])
+            ->add('context', HiddenType::class, ['data' => $options['context'] ?? 'default'])
             ->add('providerName', HiddenType::class, ['data' => $options['provider']])
             ->add('binaryContent', FileType::class, ['attr' => ['multiple' => true]]);
     }
