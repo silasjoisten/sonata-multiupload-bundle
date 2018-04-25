@@ -5,10 +5,6 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-env:
-  global:
-    - SYMFONY_DEPRECATIONS_HELPER=weak_vendors
-
 stages:
   - test
 
