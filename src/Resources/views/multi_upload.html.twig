@@ -1,7 +1,7 @@
 {% extends '@SonataAdmin/CRUD/action.html.twig' %}
 
 {% block title %}
-    {{ 'multi_upload.title'|trans({}, 'SonataMediaBundle') }}
+    {{ 'title'|trans({}, 'SonataMultiUploadBundle') }}
 {% endblock %}
 
 {% block content %}
@@ -11,17 +11,17 @@
                 <div class="col-md-6">
                     <div class="box box-solid">
                         {{ form_start(form, {attr:{ id : form.vars.id }}) }}
-                            <div class="dm-uploader {{ form.vars.id }}" style="height: 400px; border: #c5c5c5 dashed 5px;">
-                                <div class="col-md-4 col-md-push-4">
-                                    <h4 class="text-muted text-center" style="margin-top:150px;">
-                                        <span class="mb-5">Drag &amp; drop files here</span>
-                                        <a class="btn btn-link">
-                                            <span>Open the file Browser</span>
-                                            {{ form_widget(form.binaryContent, {label: false}) }}
-                                        </a>
-                                    </h4>
-                                </div>
+                        <div class="dm-uploader {{ form.vars.id }}" style="height: 400px; border: #c5c5c5 dashed 5px;">
+                            <div class="col-md-4 col-md-push-4">
+                                <h4 class="text-muted text-center" style="margin-top:150px;">
+                                    <span class="mb-5">Drag &amp; drop files here</span>
+                                    <a class="btn btn-primary btn-sm" style="margin-top: 20px;">
+                                        <span>{{ 'open_filebrowser'|trans({}, 'SonataMultiUploadBundle') }}</span>
+                                        {{ form_widget(form.binaryContent, {label: false}) }}
+                                    </a>
+                                </h4>
                             </div>
+                        </div>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -49,18 +49,18 @@
                     addFile(id, file);
                 },
                 onBeforeUpload: function (id) {
-                    setStatus(id, 'uploading', 'Uploading...');
+                    setStatus(id, 'uploading', '{{ 'uploading'|trans({}, 'SonataMultiUploadBundle') }}...');
                     setProgress(id, 0, '', true);
                 },
                 onUploadCanceled: function (id) {
-                    setStatus(id, 'warning', 'Canceled by User');
+                    setStatus(id, 'warning', '{{ 'canceled'|trans({}, 'SonataMultiUploadBundle') }}');
                     setProgress(id, 0, 'warning', false);
                 },
                 onUploadProgress: function (id, percent) {
                     setProgress(id, percent);
                 },
                 onUploadSuccess: function (id, data) {
-                    setStatus(id, 'success', 'Upload Complete');
+                    setStatus(id, 'success', '{{ 'upload_complete'|trans({}, 'SonataMultiUploadBundle') }}');
                     setProgress(id, 100, 'success', false);
                     setImage(id, data.path);
                     setEditUrl(id, data.edit);
@@ -87,7 +87,7 @@
         }
 
         function setImage(id, path) {
-            $('#uploaderFile' + id).find('canvas').css('background-image', "url('"+path+"')");
+            $('#uploaderFile' + id).find('canvas').css('background-image', "url('" + path + "')");
         }
 
         function setEditUrl(id, url) {
@@ -120,14 +120,20 @@
         <li class="list-group-item">
             <div class="media-body mb-1">
                 <div class="col-md-2">
-                    <canvas width="100px" height="60px" style="background-size: contain; background-position: center; background-repeat: no-repeat;"></canvas>
+                    <canvas width="100px" height="60px"
+                            style="background-size: contain; background-position: center; background-repeat: no-repeat;"></canvas>
                 </div>
                 <div class="col-md-10">
                     <p class="mb-2">
-                        <strong><a class="edit-url" href="#"></a></strong> - Status: <span class="text-muted">Waiting</span>
+                        <strong>
+                            <a class="edit-url" href="#"></a>
+                        </strong> - {{ 'status'|trans({}, 'SonataMultiUploadBundle') }}:
+                        <span class="text-muted">{{ 'waiting'|trans({}, 'SonataMultiUploadBundle') }}</span>
                     </p>
                     <div class="progress mb-2">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                             role="progressbar"
+                             style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
