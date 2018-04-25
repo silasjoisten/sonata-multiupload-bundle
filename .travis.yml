@@ -23,9 +23,6 @@ matrix:
     - stage: test
       php: 7.2
 
-before_install:
-  - phpenv config-add .ci/travis.php.ini
-
 install:
   - make install
 
