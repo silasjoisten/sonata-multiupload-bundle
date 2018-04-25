@@ -69,6 +69,10 @@ App\Provider\VideoProvider:
 
 ```
 
+In your provider where you want to use multiupload you need to add following trait:
+`SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait`
+
+
 After That you need to add the dependency to your `config/packages/sonata_admin.yaml`:
 ```yaml
 sonata_admin:
