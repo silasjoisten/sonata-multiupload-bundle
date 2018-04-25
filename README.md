@@ -44,7 +44,7 @@ return [
 
 ### Step 3: Configuration
 
-First you need to override the default `MediaAdminController.php` set following in your `services.yaml`
+First you need to override the default `MediaAdminController.php` set following in your `config/services.yaml`
 
 ```yaml
 parameters:
@@ -68,6 +68,20 @@ App\Provider\VideoProvider:
         - { name: sonata.media.provider, multi_upload: true }
 
 ```
+
+After That you need to add the dependency to your `config/packages/sonata_admin.yaml`:
+```yaml
+sonata_admin:
+    assets:
+        extra_stylesheets:
+            - bundles/sonatamultiupload/libs/uploader/css/jquery.dm-uploader.min.css
+
+
+        extra_javascripts:
+            - bundles/sonatamultiupload/libs/uploader/js/jquery.dm-uploader.min.js
+```
+
+Thats it!
 
 **Notice that the uploader won't work for Providers like: YouTubeProvider, VimeoProvider!**
 
