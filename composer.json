@@ -1,5 +1,6 @@
 {
     "name": "silasjoisten/sonata-multiupload-bundle",
+    "description": "A Bundle which allows you to enable Multiupload in Sonata",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
