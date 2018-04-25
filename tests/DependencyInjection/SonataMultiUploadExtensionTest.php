@@ -27,5 +27,4 @@ class SonataMultiUploadExtensionTest extends AbstractExtensionTestCase
             new SonataMultiUploadExtension(),
         ];
     }
-
 }
