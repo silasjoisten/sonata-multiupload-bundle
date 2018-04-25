@@ -14,7 +14,7 @@ class MultiUploadCompilerPass implements CompilerPassInterface
     {
         foreach ($container->findTaggedServiceIds('sonata.media.provider') as $id => $attributes) {
             foreach ($attributes as $attribute) {
-                if(($attribute['multi_upload'] ?? false) === true) {
+                if (($attribute['multi_upload'] ?? false) === true) {
                     $container->getDefinition($id)->addMethodCall('setMultiUpload', [$attribute['multi_upload']]);
                 }
             }

@@ -1,0 +1,29 @@
+{
+    "composer/semver": {
+        "version": "1.4.2"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
+        }
+    },
+    "paragonie/random_compat": {
+        "version": "v2.0.12"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
+    },
+    "symfony/polyfill-php70": {
+        "version": "v1.7.0"
+    },
+    "symfony/polyfill-php72": {
+        "version": "v1.7.0"
+    },
+    "symfony/stopwatch": {
+        "version": "v4.0.8"
+    }
+}
