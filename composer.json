@@ -19,7 +19,8 @@
         "friendsofphp/php-cs-fixer": "^2.11",
         "matthiasnoback/symfony-dependency-injection-test": "^1.1",
         "sensio/generator-bundle": "^3.1",
-        "symfony/phpunit-bridge": "^4.0"
+        "symfony/phpunit-bridge": "^4.0",
+        "symfony/webpack-encore-pack": "^1.0"
     },
     "config": {
         "sort-packages": true

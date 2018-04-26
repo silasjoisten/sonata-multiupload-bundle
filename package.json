@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dm-file-uploader": "^1.0.2"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.20.1"
+  }
+}
