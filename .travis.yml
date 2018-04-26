@@ -1,0 +1,26 @@
+language: php
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+stages:
+  - test
+
+matrix:
+  fast_finish: true
+  include:
+    - stage: test
+      php: 7.1
+    - stage: test
+      php: 7.2
+
+install:
+  - make install
+
+script:
+  - make test
+
+notifications:
+  email: silas.joisten@hotmail.de

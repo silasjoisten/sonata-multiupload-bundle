@@ -1,4 +1,4 @@
 services:
     SilasJoisten\Sonata\MultiUploadBundle\Admin\MultiUploadAdminExtension:
         tags:
-            - { name: sonata.admin.extension, target: sonata.media.admin.media }
+            - {name: sonata.admin.extension, target: sonata.media.admin.media}

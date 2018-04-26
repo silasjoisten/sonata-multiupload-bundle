@@ -1,5 +1,6 @@
 {
     "name": "silasjoisten/sonata-multiupload-bundle",
+    "description": "A Bundle which allows you to enable Multiupload in Sonata",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -9,10 +10,10 @@
         }
     ],
     "require": {
-        "php": ">= 7.0",
+        "php": "^7.0",
         "sonata-project/admin-bundle": "^3.35",
         "sonata-project/media-bundle": "^3.12",
-        "symfony/flex": "^1.0"
+        "symfony/symfony": "^2.8 || ^3.0 || ^4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.11",
