@@ -81,7 +81,7 @@ sonata_admin:
             - bundles/sonatamultiupload/libs/uploader/css/jquery.dm-uploader.min.css
 
         extra_javascripts:
-            - bundles/sonatamultiupload/libs/uploader/js/jquery.dm-uploader.min.js
+            - bundles/sonatamultiupload/dist/app.js
 ```
 
 Thats it!
