@@ -23,12 +23,12 @@ script:
   - make test
 
 after_success:
-  - yarn run encore production
+  - yarn build production
   - git config --global user.email "travis@travis-ci.org"
   - git config --global user.name "Travis CI"
   - git add ./src/Resources/dist/
   - git commit -m'built js dist file'
-  - git remote add origin-pages https://${GIT_ACCESS_TOKEN}@github.com:silasjoisten/sonata-multiupload-bundle.git > /dev/null 2>&1
+  - git remote add origin https://${GIT_ACCESS_TOKEN}@github.com/silasjoisten/sonata-oauth2-login-bundle.git > /dev/null 2>&1
   - git push --quiet --set-upstream origin ${TRAVIS_BRANCH}
 
 notifications:
