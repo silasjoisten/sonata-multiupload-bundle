@@ -1,3 +1,4 @@
 {
-  "app.js": "/app.js"
+  "sonata-multiupload.js": "/sonata-multiupload.js",
+  "sonata-multiupload.css": "/sonata-multiupload.css"
 }

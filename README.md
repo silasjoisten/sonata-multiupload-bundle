@@ -78,10 +78,10 @@ After That you need to add the dependency to your `config/packages/sonata_admin.
 sonata_admin:
     assets:
         extra_stylesheets:
-            - bundles/sonatamultiupload/libs/uploader/css/jquery.dm-uploader.min.css
+            - bundles/sonatamultiupload/dist/sonata-multiupload.css
 
         extra_javascripts:
-            - bundles/sonatamultiupload/dist/app.js
+            - bundles/sonatamultiupload/dist/sonata-multiupload.js
 ```
 
 Thats it!

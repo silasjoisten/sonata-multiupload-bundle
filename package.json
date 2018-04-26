@@ -3,6 +3,14 @@
     "dm-file-uploader": "^1.0.2"
   },
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.20.1"
+    "@symfony/webpack-encore": "^0.20.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
   }
 }
