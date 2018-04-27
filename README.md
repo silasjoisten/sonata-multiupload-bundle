@@ -90,8 +90,7 @@ Thats it!
 
 ### 4. Look & Feel
 
-![before_uploading](docs/images/before_uploading.png)
-![after_uploading](docs/images/after_uploading.png)
+![multiupload](docs/images/multiupload.gif)
 
 Used Library: 
 * [jQuery Upload](https://github.com/danielm/uploader)
