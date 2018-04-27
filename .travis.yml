@@ -12,8 +12,6 @@ matrix:
   fast_finish: true
   include:
     - stage: test
-      php: 7.0
-    - stage: test
       php: 7.1
     - stage: test
       php: 7.2
