@@ -7,4 +7,4 @@ cs:
 	@php vendor/bin/php-cs-fixer fix
 
 test:
-	@php vendor/bin/simple-phpunit
+	@php vendor/bin/phpunit
