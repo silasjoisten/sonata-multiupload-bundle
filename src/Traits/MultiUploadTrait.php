@@ -9,12 +9,12 @@ trait MultiUploadTrait
      */
     protected $multiUpload = false;
 
-    public function getMultiUpload(): bool
+    public function getMultiUpload()
     {
         return $this->multiUpload;
     }
 
-    public function setMultiUpload(bool $multiUpload): self
+    public function setMultiUpload(bool $multiUpload)
     {
         $this->multiUpload = $multiUpload;
 

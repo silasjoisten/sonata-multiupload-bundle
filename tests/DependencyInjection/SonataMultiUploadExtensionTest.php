@@ -10,14 +10,14 @@ class SonataMultiUploadExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
 
         $this->setParameter('kernel.bundles', ['SonataMultiUpload' => true]);
     }
 
-    public function testLoadDefault(): void
+    public function testLoadDefault()
     {
         $this->load();
     }

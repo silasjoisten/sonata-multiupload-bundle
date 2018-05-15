@@ -10,13 +10,13 @@ class MultiUploadControllerTest extends TestCase
 {
     private $controller;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $mediaManager = $this->createMock(ManagerInterface::class);
         $this->controller = new MultiUploadController($mediaManager);
     }
 
-    public function testItIsInstantiable(): void
+    public function testItIsInstantiable()
     {
         $this->assertNotNull($this->controller);
     }

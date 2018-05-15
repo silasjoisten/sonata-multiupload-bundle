@@ -27,7 +27,7 @@ class MultiUploadType extends AbstractType
         ]);
     }
 
-    public function getName(): string
+    public function getName()
     {
         return self::class;
     }
