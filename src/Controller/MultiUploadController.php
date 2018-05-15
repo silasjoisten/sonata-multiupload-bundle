@@ -37,7 +37,7 @@ class MultiUploadController extends MediaAdminController
             ]);
         }
 
-        return parent::createAction();
+        return parent::createAction($request);
     }
 
     public function multiUploadAction(Request $request)
