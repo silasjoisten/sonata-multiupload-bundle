@@ -16,11 +16,17 @@ matrix:
     - stage: test
       php: 7.2
 
-install:
-  - make install
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
-  - make test
+  - php vendor/bin/phpunit
+  - php vendor/bin/phpunit --coverage-clover=coverage.xml
+
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: silas.joisten@hotmail.de
