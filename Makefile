@@ -8,3 +8,6 @@ cs:
 
 test:
 	@php vendor/bin/phpunit
+
+coverage:
+	vendor/bin/phpunit --coverage-clover=coverage.xml
