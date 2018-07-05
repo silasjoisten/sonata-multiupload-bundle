@@ -39,6 +39,8 @@
             $('div.{{ form.vars.id }}').dmUploader({
                 url: '{{ form.vars.action }}',
                 maxFileSize: 30000000000,
+                extFilter: {{ provider.allowedExtensions|json_encode|raw }},
+                allowedTypes: '{{ provider.allowedMimeTypes|join('|')|default('*') }}',
                 onDragEnter: function () {
                     $(this).css({'background-color': 'lightgray'});
                 },

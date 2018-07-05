@@ -58,6 +58,7 @@ class MultiUploadController extends MediaAdminController
             return $this->render('@SonataMultiUpload/multi_upload.html.twig', [
                 'action' => 'multi_upload',
                 'form' => $form->createView(),
+                'provider' => $provider,
             ]);
         }
 
