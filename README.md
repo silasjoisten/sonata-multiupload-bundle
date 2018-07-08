@@ -78,7 +78,10 @@ App\Provider\VideoProvider:
 ```
 
 If you are using default Sonata `MediaProvider` these arguments are already injected.
-Otherwise be aware that the provider gets `allowedMimeTypes` and `allowedExtensions` injected. For Example:
+Otherwise be aware that the provider gets `allowedMimeTypes` and `allowedExtensions` injected.
+This arguments will be used by `JavaScript` to validate `MimeType` and `FileExtensions` before the Request starts.
+
+For Example:
 
 ```yaml
 
