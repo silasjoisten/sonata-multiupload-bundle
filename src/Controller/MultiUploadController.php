@@ -59,7 +59,7 @@ class MultiUploadController extends MediaAdminController
                 'action' => 'multi_upload',
                 'form' => $form->createView(),
                 'provider' => $provider,
-                'maxUploadFilesize' => $this->container->getParameter('sonata_multi_upload.max_upload_filesize')
+                'maxUploadFilesize' => $this->container->getParameter('sonata_multi_upload.max_upload_filesize'),
             ]);
         }
 
