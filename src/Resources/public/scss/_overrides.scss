@@ -1,0 +1,33 @@
+.dm-uploader {
+  height: 400px;
+  border: #c5c5c5 dashed 5px;
+
+  .title {
+    margin-top: 150px;
+  }
+
+  .btn-select-files {
+    margin-top: 20px;
+  }
+}
+
+.dm-uploader.drag {
+  background-color: lightgray;
+}
+
+.list-files {
+  height: 400px;
+  overflow: auto;
+
+  .file-image {
+    width: 100px;
+    height: 60px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .progress-bar {
+    width: 0%;
+  }
+}
