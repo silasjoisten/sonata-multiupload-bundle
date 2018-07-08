@@ -107,7 +107,7 @@ Thats it!
 
 ### 4. Look & Feel
 
-![multiupload](docs/images/multiupload.gif)
+![multiupload](docs/images/multiupload-bundle.gif)
 
 Used Library: 
 * [jQuery Upload](https://github.com/danielm/uploader)
