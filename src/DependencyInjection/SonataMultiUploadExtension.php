@@ -22,6 +22,5 @@ class SonataMultiUploadExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controller.yaml');
         $loader->load('admin_extensions.yaml');
-
     }
 }
