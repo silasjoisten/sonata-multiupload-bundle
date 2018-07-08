@@ -9,18 +9,18 @@
         <div class="box-body">
             <div class="alert alert-dismissible hidden">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+                <h4><i class="icon fa fa-warning"></i></h4>
                 <div class="text"></div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="box box-solid">
                         {{ form_start(form, {attr:{ id : form.vars.id }}) }}
-                        <div class="dm-uploader {{ form.vars.id }}" style="height: 400px; border: #c5c5c5 dashed 5px;">
+                        <div class="dm-uploader {{ form.vars.id }}">
                             <div class="col-md-4 col-md-push-4">
-                                <h4 class="text-muted text-center" style="margin-top:150px;">
+                                <h4 class="text-muted text-center title">
                                     <span class="mb-5">{{ 'drag_and_drop'|trans({}, 'SonataMultiUploadBundle') }}</span>
-                                    <a class="btn btn-primary btn-sm" style="margin-top: 20px;">
+                                    <a class="btn btn-primary btn-sm btn-select-files">
                                         <span>{{ 'open_filebrowser'|trans({}, 'SonataMultiUploadBundle') }}</span>
                                         {{ form_widget(form.binaryContent, {label: false}) }}
                                     </a>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="box box-solid">
-                        <ul class="list-group list-unstyled" id="files" style="height: 400px; overflow: auto;">
+                        <ul class="list-group list-unstyled list-files" id="files">
                         </ul>
                     </div>
                 </div>
@@ -51,10 +51,10 @@
                     allowedTypes: '{{ provider.allowedMimeTypes|join('|')|default('*') }}',
                 {% endif %}
                 onDragEnter: function () {
-                    $(this).css({'background-color': 'lightgray'});
+                    $(this).addClass('drag');
                 },
                 onDragLeave: function () {
-                    $(this).css({'background-color': '#ffffff'});
+                    $(this).removeClass('drag');
                 },
                 onNewFile: function (id, file) {
                     addFile(id, file);
@@ -147,8 +147,7 @@
         <li class="list-group-item">
             <div class="media-body mb-1">
                 <div class="col-md-2">
-                    <canvas width="100px" height="60px"
-                            style="background-size: contain; background-position: center; background-repeat: no-repeat;"></canvas>
+                    <canvas class="file-image"></canvas>
                 </div>
                 <div class="col-md-10">
                     <p class="mb-2">
@@ -160,7 +159,10 @@
                     <div class="progress mb-2">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                              role="progressbar"
-                             style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                             aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                        </div>
                     </div>
                 </div>
             </div>
