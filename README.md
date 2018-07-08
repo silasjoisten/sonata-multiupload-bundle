@@ -94,7 +94,7 @@ sonata_admin:
 
 #### OPTIONAL
 
-You can configure following:
+Create `config/packages/sonata_multi_upload.yaml`. You can configure following:
 
 ```yaml
 sonata_multi_upload:
