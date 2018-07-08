@@ -17,6 +17,8 @@ class SonataMultiUploadExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('sonata_multi_upload.max_upload_filesize', $config['max_upload_filesize']);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controller.yaml');
         $loader->load('admin_extensions.yaml');
