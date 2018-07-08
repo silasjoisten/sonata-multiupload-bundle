@@ -7,6 +7,11 @@
 {% block content %}
     <div class="box box-solid">
         <div class="box-body">
+            <div class="alert alert-dismissible hidden">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+                <div class="text"></div>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="box box-solid">
@@ -75,6 +80,15 @@
                     setStatus(id, 'danger', message);
                     setProgress(id, 0, 'danger', false);
                 },
+                onFileTypeError: function (file) {
+                    setNotification('danger', '<b>' + file.name + '</b> {{ 'file_type_error'|trans({}, 'SonataMultiUploadBundle') }}');
+                },
+                onFileSizeError: function (file) {
+                    setNotification('danger', '<b>' + file.name + '</b> {{ 'file_size_error'|trans({}, 'SonataMultiUploadBundle') }}');
+                },
+                onFileExtError: function (file) {
+                    setNotification('danger', '<b>' + file.name + '</b> {{ 'file_extension_error'|trans({}, 'SonataMultiUploadBundle') }}');
+                }
             });
         });
 
@@ -86,6 +100,13 @@
             $template.data('file-id', id);
 
             $('#files').prepend($template);
+        }
+
+        function setNotification(status, message) {
+            var $alert = $('div.alert')
+            $alert.addClass('alert-' + status);
+            $alert.find('.text').append('<p>' + message + '</p>');
+            $alert.removeClass('hidden').fadeIn();
         }
 
         function setStatus(id, status, message) {
