@@ -50,7 +50,6 @@ return [
 ];
 ```
 
-
 ### Step 3: Configuration
 
 First you need to override the default `MediaAdminController.php` set following in your `config/services.yaml`
@@ -91,6 +90,15 @@ sonata_admin:
 
         extra_javascripts:
             - bundles/sonatamultiupload/dist/sonata-multiupload.js
+```
+
+#### OPTIONAL
+
+You can configure following:
+
+```yaml
+sonata_multi_upload:
+    max_upload_filesize: 3000000 # 3MB the default value is 0 -> allow every size
 ```
 
 Thats it!

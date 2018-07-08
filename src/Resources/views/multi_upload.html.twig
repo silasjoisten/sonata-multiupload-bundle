@@ -43,7 +43,7 @@
         $(function () {
             $('div.{{ form.vars.id }}').dmUploader({
                 url: '{{ form.vars.action }}',
-                maxFileSize: 30000000000,
+                maxFileSize: {{ maxUploadFilesize }},
                 {% if provider.allowedExtensions is defined %}
                     extFilter: {{ provider.allowedExtensions|json_encode|raw }},
                 {% endif %}
