@@ -77,6 +77,23 @@ App\Provider\VideoProvider:
 
 ```
 
+If you are using default Sonata `MediaProvider` these arguments are already injected.
+Otherwise be aware that the provider gets `allowedMimeTypes` and `allowedExtensions` injected. For Example:
+
+```yaml
+
+App\Provider\VideoProvider:
+    arguments:
+        #- "App\Provider\VideoProvider"
+        #- "@sonata.media.filesystem.local"
+        #- "@sonata.media.cdn.server"
+        #- "@sonata.media.generator.default"
+        #- "@sonata.media.video.thumbnail"
+        - ['mp4', 'mov', 'flv', 'wmv', 'mxf', 'mkv','m4v','mpg']
+        - ['video/mp4', 'video/quicktime', 'video/x-flv','video/x-ms-wmv','application/mxf','video/x-matroska','video/x-m4v','video/mpeg']
+        # ...
+```
+
 In your provider where you want to use multiupload you need to add following trait:
 `SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait`
 
