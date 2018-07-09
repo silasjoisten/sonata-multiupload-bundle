@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->integerNode('max_upload_filesize')
+                    ->info('in bytes (3000000 == 3MB), 0 means to allow every size')
                     ->defaultValue(0)
                 ->end()
             ->end()
