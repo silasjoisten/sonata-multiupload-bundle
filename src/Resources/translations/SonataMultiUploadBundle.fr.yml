@@ -1,0 +1,11 @@
+title: Multi Upload
+open_filebrowser: "Ouvrir dans l'explorateur de fichier"
+status: Statut
+waiting: En attente
+uploading: "En cours d'envoi"
+canceled: Annulé
+upload_complete: Transfert terminé
+drag_and_drop: Glisser-déposer des fichiers ici
+file_type_error: "Le type de fichier n'est pas correct"
+file_size_error: Le fichier est trop lourd
+file_extension_error: "Cette extension de fichier n'est pas supportée"
