@@ -1,11 +1,11 @@
-title: Multi Upload
-open_filebrowser: Open in file browser
-status: Status
-waiting: Waiting
-uploading: Uploading
-canceled: Canceled
-upload_complete: Upload complete
-drag_and_drop: Drag & drop files here
-file_type_error: Filetype is not correct
-file_size_error: File is to large
-file_extension_error: File extension is not supported
+title: Мультизагрузка
+open_filebrowser: Открыть в проводнике
+status: Статус
+waiting: Ожидает
+uploading: Загрузка
+canceled: Отменен
+upload_complete: Загрузка завершена
+drag_and_drop: Перетащите сюда файл
+file_type_error: Тип файла некорректен
+file_size_error: Слишком большой размер файла
+file_extension_error: Расширение файла не поддерживается
