@@ -1,0 +1,11 @@
+title: Мультизагрузка
+open_filebrowser: Открыть в проводнике
+status: Статус
+waiting: Ожидает
+uploading: Загрузка
+canceled: Отменен
+upload_complete: Загрузка завершена
+drag_and_drop: Перетащите сюда файл
+file_type_error: Тип файла некорректен
+file_size_error: Слишком большой размер файла
+file_extension_error: Расширение файла не поддерживается
