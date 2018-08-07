@@ -5,6 +5,7 @@ namespace SilasJoisten\Sonata\MultiUploadBundle\Controller;
 use SilasJoisten\Sonata\MultiUploadBundle\Form\MultiUploadType;
 use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\MediaBundle\Controller\MediaAdminController;
+use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\MediaProviderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -63,6 +64,7 @@ class MultiUploadController extends MediaAdminController
             ]);
         }
 
+        /** @var MediaInterface $media */
         $media = $this->mediaManager->create();
         $media->setContext($context);
         $media->setBinaryContent($request->files->get('file'));
@@ -71,7 +73,7 @@ class MultiUploadController extends MediaAdminController
 
         return new JsonResponse([
             'status' => 'ok',
-            'path' => $provider->getCdnPath($provider->getReferenceImage($media), true),
+            'path' => $provider->getReferenceImage($media),
             'edit' => $this->admin->generateUrl('edit', ['id' => $media->getId()]),
         ]);
     }
