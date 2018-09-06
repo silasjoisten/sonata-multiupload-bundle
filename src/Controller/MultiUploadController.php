@@ -73,7 +73,7 @@ class MultiUploadController extends MediaAdminController
 
         return new JsonResponse([
             'status' => 'ok',
-            'path' => $provider->getReferenceImage($media),
+            'path' => $provider->generatePublicUrl($media, MediaProviderInterface::FORMAT_REFERENCE),
             'edit' => $this->admin->generateUrl('edit', ['id' => $media->getId()]),
         ]);
     }
