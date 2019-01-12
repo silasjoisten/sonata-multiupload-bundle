@@ -97,9 +97,25 @@ App\Provider\VideoProvider:
         # ...
 ```
 
-In your provider where you want to use multiupload you need to add following trait:
-`SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait`
+In your provider where you want to use multiupload you need to add the
+`SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait` trait.
+If you dont know how to use them take a look at 
+[PHP trait definintion](http://php.net/manual/en/language.oop5.traits.php)
 
+In the following you see how to use the `MultiUploadTrait`:
+```php
+
+namespace App\Provider;
+
+use SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait;
+
+class VideoProvider extends FileProvider
+{
+    use MultiUploadTrait;
+    
+    //...
+}
+```
 
 After That you need to add the dependency to your `config/packages/sonata_admin.yaml`:
 ```yaml
