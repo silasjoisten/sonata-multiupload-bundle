@@ -153,33 +153,54 @@ a gallery from uploaded medias.
 
 In the following i provide an example:
 
-
 In your `MediaAdminController.php`:
 ```php
-public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager): RedirectResponse
+namespace App\Controller;
+
+use SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController;
+use Sonata\MediaBundle\Entity\MediaManager;
+use Sonata\MediaBundle\Entity\GalleryManager;
+
+final class MediaAdminController extends MultiUploadController
 {
-    $idx = $request->query->get('idx');
-    $idx = json_decode($idx);
-
-    $gallery = $galleryManager->create();
-    $gallery->setName('Auto Created Gallery');
-    $gallery->setEnabled(false);
-    $gallery->setContext('default');
-
-    foreach ($idx as $id) {
-        $media = $mediaManager->find($id);
-        
-        $galleryHasMedia = new GalleryHasMedia();
-        $galleryHasMedia->setGallery($gallery);
-        $galleryHasMedia->setMedia($media);
-        $gallery->addGalleryHasMedia($galleryHasMedia);
+    public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager): RedirectResponse
+    {
+        $idx = $request->query->get('idx');
+        $idx = json_decode($idx);
+    
+        $gallery = $galleryManager->create();
+        $gallery->setName('Auto Created Gallery');
+        $gallery->setEnabled(false);
+        $gallery->setContext('default');
+    
+        foreach ($idx as $id) {
+            $media = $mediaManager->find($id);
+            
+            $galleryHasMedia = new GalleryHasMedia();
+            $galleryHasMedia->setGallery($gallery);
+            $galleryHasMedia->setMedia($media);
+            $gallery->addGalleryHasMedia($galleryHasMedia);
+        }
+    
+        $galleryManager->save($gallery);
+    
+        return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
     }
-
-    $galleryManager->save($gallery);
-
-    return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
 }
 ```
+
+Maybe you need to create an alias for `MediaManager` and `GalleryManager` like:
+```yaml
+# config/services.yaml
+services:
+    Sonata\MediaBundle\Entity\MediaManager:
+        alias: sonata.media.manager.media
+
+    Sonata\MediaBundle\Entity\GalleryManager:
+        alias: sonata.media.manager.gallery
+```
+
+
 Register Route in `MediaAdmin.php`:
 
 ```php
