@@ -24,15 +24,19 @@ class SonataMultiUploadExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertTrue($this->container->hasParameter('sonata_multi_upload.max_upload_filesize'));
+        $this->assertTrue($this->container->hasParameter('sonata_multi_upload.redirect_to'));
         $this->assertSame(0, $this->container->getParameter('sonata_multi_upload.max_upload_filesize'));
+        $this->assertNull($this->container->getParameter('sonata_multi_upload.redirect_to'));
     }
 
     public function testLoadWithConfig()
     {
-        $this->load(['max_upload_filesize' => 300000]);
+        $this->load(['max_upload_filesize' => 300000, 'redirect_to' => 'admin_sonata_media_media_list']);
 
         $this->assertTrue($this->container->hasParameter('sonata_multi_upload.max_upload_filesize'));
+        $this->assertTrue($this->container->hasParameter('sonata_multi_upload.redirect_to'));
         $this->assertSame(300000, $this->container->getParameter('sonata_multi_upload.max_upload_filesize'));
+        $this->assertSame('admin_sonata_media_media_list', $this->container->getParameter('sonata_multi_upload.redirect_to'));
     }
 
     public function testLoadingServiceDefinitions()

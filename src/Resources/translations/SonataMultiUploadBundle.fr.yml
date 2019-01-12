@@ -9,3 +9,4 @@ drag_and_drop: Glisser-déposer des fichiers ici
 file_type_error: "Le type de fichier n'est pas correct"
 file_size_error: Le fichier est trop lourd
 file_extension_error: "Cette extension de fichier n'est pas supportée"
+confirm_leaving_page: Voulez-vous vraiment quitter cette page?

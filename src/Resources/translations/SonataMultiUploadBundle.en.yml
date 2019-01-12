@@ -9,3 +9,4 @@ drag_and_drop: Drag & drop files here
 file_type_error: Filetype is not correct
 file_size_error: File is too large
 file_extension_error: File extension is not supported
+confirm_leaving_page: Do you really want to leave this page?
