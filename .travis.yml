@@ -17,6 +17,8 @@ matrix:
       php: 7.1
     - stage: test
       php: 7.2
+    - stage: test
+      php: 7.3
 
 before_script:
   - travis_retry composer self-update
@@ -30,4 +32,4 @@ after_success:
   - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
 notifications:
-  email: silas.joisten@hotmail.de
+  email: silasjoisten@gmail.com
