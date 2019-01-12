@@ -9,3 +9,4 @@ drag_and_drop: Перетащите сюда файл
 file_type_error: Тип файла некорректен
 file_size_error: Слишком большой размер файла
 file_extension_error: Расширение файла не поддерживается
+confirm_leaving_page: Вы действительно хотите покинуть эту страницу?

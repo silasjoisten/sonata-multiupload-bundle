@@ -9,3 +9,4 @@ drag_and_drop: Dateien hier ablegen
 file_type_error: Dateityp wird nicht unterstützt
 file_size_error: Datei ist zu groß
 file_extension_error: Dateiending wird nicht unterstützt
+confirm_leaving_page: Möchten Sie die Seite wirklich verlassen?

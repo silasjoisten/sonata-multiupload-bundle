@@ -121,6 +121,18 @@ sonata_multi_upload:
     max_upload_filesize: 3000000 # 3MB the default value is 0 -> allow every size
 ```
 
+There is an option `redirect_to` which allows you to redirect after complete upload to your configured page.
+
+```yaml
+sonata_multi_upload:
+    redirect_to: 'admin_sonata_media_media_list'
+```
+
+**HINT:** You can create a controller action in your `MediaAdminController` which is called like 
+`createGalleryFromMultiUploadAction`. The MultiUploadBundle passes automatically the id's from the uploaded medias 
+to the redirection route for example: `/foo/bar?idx=%5B70%2C71%2C72%5D` so you can take them and create 
+a gallery from uploaded medias.
+
 Thats it!
 
 **Notice that the uploader won't work for Providers like: YouTubeProvider, VimeoProvider!**

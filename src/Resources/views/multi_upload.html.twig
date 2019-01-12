@@ -41,6 +41,8 @@
     </div>
     <script>
         $(function () {
+            let cancelRedirect = false;
+            let uploadedMediaIds = [];
             $('div.{{ form.vars.id }}').dmUploader({
                 url: '{{ form.vars.action }}',
                 maxFileSize: {{ maxUploadFilesize }},
@@ -75,21 +77,39 @@
                     setProgress(id, 100, 'success', false);
                     setImage(id, data.path);
                     setEditUrl(id, data.edit);
+                    uploadedMediaIds.push(data.id)
                 },
                 onUploadError: function (id, xhr, status, message) {
                     setStatus(id, 'danger', message);
                     setProgress(id, 0, 'danger', false);
+                    cancelRedirect = true;
                 },
                 onFileTypeError: function (file) {
                     setNotification('danger', '<b>' + file.name + '</b> {{ 'file_type_error'|trans({}, 'SonataMultiUploadBundle') }}');
+                    cancelRedirect = true;
                 },
                 onFileSizeError: function (file) {
                     setNotification('danger', '<b>' + file.name + '</b> {{ 'file_size_error'|trans({}, 'SonataMultiUploadBundle') }}');
+                    cancelRedirect = true;
                 },
                 onFileExtError: function (file) {
                     setNotification('danger', '<b>' + file.name + '</b> {{ 'file_extension_error'|trans({}, 'SonataMultiUploadBundle') }}');
-                }
+                    cancelRedirect = true;
+                },
+                {% if redirectTo %}
+                    onComplete() {
+                        if(cancelRedirect) {
+                            if(!confirm('{{ 'confirm_leaving_page'|trans({}, 'SonataMultiUploadBundle') }}')) {
+                                return;
+                            }
+                        }
+
+                        var url = '{{ path(redirectTo) }}' + '?idx=' +encodeURIComponent(JSON.stringify(uploadedMediaIds))
+                        window.location.replace(url)
+                    }
+                {% endif %}
             });
+
         });
 
         function addFile(id, file) {

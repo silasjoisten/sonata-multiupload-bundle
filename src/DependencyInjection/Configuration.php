@@ -21,6 +21,10 @@ class Configuration implements ConfigurationInterface
                     ->info('in bytes (3000000 == 3MB), 0 means to allow every size')
                     ->defaultValue(0)
                 ->end()
+                ->scalarNode('redirect_to')
+                    ->info('allows a redirect to a route after success')
+                    ->defaultNull()
+                ->end()
             ->end()
         ;
 
