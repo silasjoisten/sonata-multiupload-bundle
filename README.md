@@ -9,11 +9,10 @@ silasjoisten/sonata-multiupload-bundle
 
 ## Installation
 
-
 ### Step 1: Download the Bundle
 
 ```console
-$ composer require silasjoisten/sonata-multiupload-bundle
+composer require silasjoisten/sonata-multiupload-bundle
 ```
 
 ### Step 2: Enable the Bundle
@@ -52,23 +51,24 @@ return [
 
 ### Step 3: Configuration
 
-First you need to override the default `MediaAdminController.php` set following in your `config/services.yaml`
+First you need to override the default `MediaAdminController.php` via:
 
 ```yaml
+# config/services.yaml
+
 parameters:
     sonata.media.admin.media.controller: SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController
 
 services:
-    #...
+    # ...
 ```
 
 Now add to the service definition of your Provider and add to tag `multi_upload: true` like:
 
 ```yaml
-
 App\Provider\VideoProvider:
     arguments:
-        - "App\Provider\VideoProvider"
+        - 'App\Provider\VideoProvider'
         # ...
     calls:
         # ...
@@ -84,14 +84,13 @@ This arguments will be used by `JavaScript` to validate `MimeType` and `FileExte
 For Example:
 
 ```yaml
-
 App\Provider\VideoProvider:
     arguments:
-        #- "App\Provider\VideoProvider"
-        #- "@sonata.media.filesystem.local"
-        #- "@sonata.media.cdn.server"
-        #- "@sonata.media.generator.default"
-        #- "@sonata.media.video.thumbnail"
+        #- 'App\Provider\VideoProvider'
+        #- '@sonata.media.filesystem.local'
+        #- '@sonata.media.cdn.server'
+        #- '@sonata.media.generator.default'
+        #- '@sonata.media.video.thumbnail'
         - ['mp4', 'mov', 'flv', 'wmv', 'mxf', 'mkv','m4v','mpg']
         - ['video/mp4', 'video/quicktime', 'video/x-flv','video/x-ms-wmv','application/mxf','video/x-matroska','video/x-m4v','video/mpeg']
         # ...
@@ -104,21 +103,22 @@ If you dont know how to use them take a look at
 
 In the following you see how to use the `MultiUploadTrait`:
 ```php
-
 namespace App\Provider;
 
 use SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait;
 
-class VideoProvider extends FileProvider
+final class VideoProvider extends FileProvider
 {
     use MultiUploadTrait;
     
-    //...
+    // ...
 }
 ```
 
-After That you need to add the dependency to your `config/packages/sonata_admin.yaml`:
+Add JavaScript and CSS to SonataAdmin config:
 ```yaml
+# config/packages/sonata_admin.yaml
+
 sonata_admin:
     assets:
         extra_stylesheets:
@@ -130,9 +130,9 @@ sonata_admin:
 
 #### OPTIONAL
 
-Create `config/packages/sonata_multi_upload.yaml`. You can configure following:
-
 ```yaml
+# config/packages/sonata_multi_upload.yaml
+
 sonata_multi_upload:
     max_upload_filesize: 3000000 # 3MB the default value is 0 -> allow every size
 ```
@@ -140,6 +140,8 @@ sonata_multi_upload:
 There is an option `redirect_to` which allows you to redirect after complete upload to your configured page.
 
 ```yaml
+# config/packages/sonata_multi_upload.yaml
+
 sonata_multi_upload:
     redirect_to: 'admin_sonata_media_media_list'
 ```
@@ -154,53 +156,50 @@ In the following i provide an example:
 
 In your `MediaAdminController.php`:
 ```php
-    /**
-     * @return RedirectResponse
-     */
-    public function createGalleryAction(Request $request)
-    {
-        $idx = $request->query->get('idx');
-        $idx = json_decode($idx);
+public function createGalleryAction(Request $request): RedirectResponse
+{
+    $idx = $request->query->get('idx');
+    $idx = json_decode($idx);
 
-        $galleryManager = $this->get('sonata.media.manager.gallery');
+    $galleryManager = $this->get('sonata.media.manager.gallery');
 
-        $gallery = $galleryManager->create();
-        $gallery->setName('Auto Created Gallery');
-        $gallery->setEnabled(false);
-        $gallery->setContext('default');
+    $gallery = $galleryManager->create();
+    $gallery->setName('Auto Created Gallery');
+    $gallery->setEnabled(false);
+    $gallery->setContext('default');
 
-        $mediaManager = $this->get('sonata.media.manager.media');
-        foreach ($idx as $id) {
-            $media = $mediaManager->find($id);
-
-            $galleryHasMedia = new GalleryHasMedia();
-            $galleryHasMedia->setGallery($gallery);
-            $galleryHasMedia->setMedia($media);
-            $gallery->addGalleryHasMedia($galleryHasMedia);
-        }
-
-        $galleryManager->save($gallery);
-
-        return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
+    $mediaManager = $this->get('sonata.media.manager.media');
+    foreach ($idx as $id) {
+        $media = $mediaManager->find($id);
+        
+        $galleryHasMedia = new GalleryHasMedia();
+        $galleryHasMedia->setGallery($gallery);
+        $galleryHasMedia->setMedia($media);
+        $gallery->addGalleryHasMedia($galleryHasMedia);
     }
+
+    $galleryManager->save($gallery);
+
+    return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
+}
 ```
 Register Route in `MediaAdmin.php`:
 
 ```php
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->add('create_gallery','create/gallery/uploaded/medias');
-    }
+protected function configureRoutes(RouteCollection $collection): void
+{
+    $collection->add('create_gallery', 'create/gallery/uploaded/medias');
+}
 ```
 
-And finally in the `sonata_multiupload.yaml` config:
+And update the config accordingly:
 ```yaml
+# config/packages/sonata_multi_upload.yaml
+
 sonata_multi_upload:
     redirect_to: 'admin_sonata_media_media_create_gallery'
 ```
-So this is the way you can create an Gallery out of uploaded Medias
-
-Thats it!
+This is how you can create a Gallery by uploaded Medias.
 
 **Notice that the uploader won't work for Providers like: YouTubeProvider, VimeoProvider!**
 
