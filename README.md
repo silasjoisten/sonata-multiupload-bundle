@@ -133,6 +133,57 @@ sonata_multi_upload:
 to the redirection route for example: `/foo/bar?idx=%5B70%2C71%2C72%5D` so you can take them and create 
 a gallery from uploaded medias.
 
+In the following i provide an example:
+
+
+In your `MediaAdminController.php`:
+```php
+    /**
+     * @return RedirectResponse
+     */
+    public function createGalleryAction(Request $request)
+    {
+        $idx = $request->query->get('idx');
+        $idx = json_decode($idx);
+
+        $galleryManager = $this->get('sonata.media.manager.gallery');
+
+        $gallery = $galleryManager->create();
+        $gallery->setName('Auto Created Gallery');
+        $gallery->setEnabled(false);
+        $gallery->setContext('default');
+
+        $mediaManager = $this->get('sonata.media.manager.media');
+        foreach ($idx as $id) {
+            $media = $mediaManager->find($id);
+
+            $galleryHasMedia = new GalleryHasMedia();
+            $galleryHasMedia->setGallery($gallery);
+            $galleryHasMedia->setMedia($media);
+            $gallery->addGalleryHasMedia($galleryHasMedia);
+        }
+
+        $galleryManager->save($gallery);
+
+        return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
+    }
+```
+Register Route in `MediaAdmin.php`:
+
+```php
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('create_gallery','create/gallery/uploaded/medias');
+    }
+```
+
+And finally in the `sonata_multiupload.yaml` config:
+```yaml
+sonata_multi_upload:
+    redirect_to: 'admin_sonata_media_media_create_gallery'
+```
+So this is the way you can create an Gallery out of uploaded Medias
+
 Thats it!
 
 **Notice that the uploader won't work for Providers like: YouTubeProvider, VimeoProvider!**
