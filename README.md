@@ -156,19 +156,16 @@ In the following i provide an example:
 
 In your `MediaAdminController.php`:
 ```php
-public function createGalleryAction(Request $request): RedirectResponse
+public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager): RedirectResponse
 {
     $idx = $request->query->get('idx');
     $idx = json_decode($idx);
-
-    $galleryManager = $this->get('sonata.media.manager.gallery');
 
     $gallery = $galleryManager->create();
     $gallery->setName('Auto Created Gallery');
     $gallery->setEnabled(false);
     $gallery->setContext('default');
 
-    $mediaManager = $this->get('sonata.media.manager.media');
     foreach ($idx as $id) {
         $media = $mediaManager->find($id);
         
