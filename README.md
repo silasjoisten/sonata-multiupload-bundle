@@ -157,13 +157,14 @@ In your `MediaAdminController.php`:
 ```php
 namespace App\Controller;
 
+use App\Application\Sonata\MediaBundle\Admin\GalleryAdmin;
 use SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController;
 use Sonata\MediaBundle\Entity\MediaManager;
 use Sonata\MediaBundle\Entity\GalleryManager;
 
 final class MediaAdminController extends MultiUploadController
 {
-    public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager): RedirectResponse
+    public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager, GalleryAdmin $galleryAdmin): RedirectResponse
     {
         $idx = $request->query->get('idx');
         $idx = json_decode($idx);
@@ -184,7 +185,7 @@ final class MediaAdminController extends MultiUploadController
     
         $galleryManager->save($gallery);
     
-        return $this->redirect($this->get('sonata.media.admin.gallery')->generateObjectUrl('edit', $gallery));
+        return $this->redirect($galleryAdmin->generateObjectUrl('edit', $gallery));
     }
 }
 ```
@@ -198,6 +199,9 @@ services:
 
     Sonata\MediaBundle\Entity\GalleryManager:
         alias: sonata.media.manager.gallery
+
+    App\Application\Sonata\MediaBundle\Admin\GalleryAdmin:
+        alias: sonata.media.admin.gallery
 ```
 
 
