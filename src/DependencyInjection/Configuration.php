@@ -12,10 +12,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sonata_multi_upload');
+        $treeBuilder = new TreeBuilder('sonata_multi_upload');
 
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->integerNode('max_upload_filesize')
                     ->info('in bytes (3000000 == 3MB), 0 means to allow every size')
