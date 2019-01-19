@@ -3,7 +3,7 @@
 namespace SilasJoisten\Sonata\MultiUploadBundle\Controller;
 
 use SilasJoisten\Sonata\MultiUploadBundle\Form\MultiUploadType;
-use Sonata\CoreBundle\Model\ManagerInterface;
+use Sonata\Doctrine\Model\ManagerInterface;
 use Sonata\MediaBundle\Controller\MediaAdminController;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\MediaProviderInterface;
