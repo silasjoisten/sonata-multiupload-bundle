@@ -14,7 +14,14 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('sonata_multi_upload');
 
-        $treeBuilder->getRootNode()
+        // Keep compatibility with symfony/config < 4.2
+        if (!method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->root('sonata_admin');
+        } else {
+            $rootNode = $treeBuilder->getRootNode();
+        }
+
+        $rootNode
             ->children()
                 ->integerNode('max_upload_filesize')
                     ->info('in bytes (3000000 == 3MB), 0 means to allow every size')
