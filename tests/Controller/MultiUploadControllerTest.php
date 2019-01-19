@@ -4,7 +4,7 @@ namespace SilasJoisten\Sonata\MultiUploadBundle\Tests\Controller;
 
 use PHPUnit\Framework\TestCase;
 use SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController;
-use Sonata\CoreBundle\Model\ManagerInterface;
+use Sonata\Doctrine\Model\ManagerInterface;
 
 class MultiUploadControllerTest extends TestCase
 {
