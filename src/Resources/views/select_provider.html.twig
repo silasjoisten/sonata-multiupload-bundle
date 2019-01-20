@@ -18,7 +18,7 @@
                         {% set path = admin.generateUrl('create', {provider: provider.name}) %}
                     {% endif %}
                     <a href="{{ path }}" class="btn btn-app btn-block">
-                        {% if not provider.providerMetadata.image %}
+                        {% if provider.providerMetadata.option('class') %}
                             <i class="{{ provider.providerMetadata.option('class') }}"></i>
                         {% else %}
                             <img src="{{ asset(provider.providerMetadata.image) }}" style="max-height: 20px; max-width: 100px;"/>
