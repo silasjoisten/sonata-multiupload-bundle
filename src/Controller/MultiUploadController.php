@@ -84,6 +84,7 @@ class MultiUploadController extends MediaAdminController
     {
         return $this->createForm(MultiUploadType::class, null, [
             'data_class' => $this->mediaManager->getClass(),
+            'action' => $this->admin->generateUrl('multi_upload', ['provider' => $provider->getName()]),
             'provider' => $provider->getName(),
             'context' => $context,
         ]);
