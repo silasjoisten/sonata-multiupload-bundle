@@ -44,7 +44,7 @@
             let cancelRedirect = false;
             let uploadedMediaIds = [];
             $('div.{{ form.vars.id }}').dmUploader({
-                url: '{{ form.vars.action }}',
+                url: '{{ form.vars.action|raw }}',
                 maxFileSize: {{ maxUploadFilesize }},
                 {% if provider.allowedExtensions is defined %}
                     extFilter: {{ provider.allowedExtensions|json_encode|raw }},
