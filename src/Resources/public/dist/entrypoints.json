@@ -1,0 +1,12 @@
+{
+  "entrypoints": {
+    "sonata-multiupload": {
+      "css": [
+        "/sonata-multiupload.css"
+      ],
+      "js": [
+        "/sonata-multiupload.js"
+      ]
+    }
+  }
+}
