@@ -9,7 +9,7 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
-
+    .disableSingleRuntimeChunk()
     // uncomment to define the assets of the project
      .addEntry('sonata-multiupload', './src/Resources/public/js/app.js')
 
