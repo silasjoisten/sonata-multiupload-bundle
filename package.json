@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.27.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.0.1"
   },
   "scripts": {
