@@ -30,7 +30,7 @@ class MultiUploadController extends MediaAdminController
     {
         $this->admin->checkAccess('create');
 
-        if (!$request->get('provider') && $request->isMethod('get')) {
+        if (!$request->get('provider') && $request->isMethod('get') && !$request->isXmlHttpRequest()) {
             $pool = $this->get('sonata.media.pool');
 
             return $this->render('@SonataMultiUpload/select_provider.html.twig', [
