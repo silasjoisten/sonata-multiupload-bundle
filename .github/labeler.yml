@@ -1,0 +1,18 @@
+"dependency":
+    - .github/dependabot.yml
+    - composer.json
+    - composer.lock
+    - symfony.lock
+    - tools/composer.json
+    - tools/composer.lock
+
+"Github Actions":
+    - .github/workflows/*
+    - .github/workflows/**/*
+
+"SymfonyCloud":
+    - .php-version
+    - .symfony.cloud.yaml
+    - .symfony/routes.yaml
+    - .symfony/services.yaml
+    - php.ini

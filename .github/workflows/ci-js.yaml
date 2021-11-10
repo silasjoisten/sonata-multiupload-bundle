@@ -1,0 +1,115 @@
+name: "JS"
+
+on: # yamllint disable-line rule:truthy
+    pull_request:
+        paths:
+            - ".github/workflows/ci-js.yaml"
+            - "**"
+    push:
+        branches:
+            - "develop"
+            - "master"
+        paths:
+            - ".github/workflows/ci-js.yaml"
+            - "**"
+
+env:
+    BOT_EMAIL: "silasjoisten@gmail.de"
+    BOT_NAME: "Silas Joisten"
+
+jobs:
+    coding-standards:
+        name: "Coding Standards"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                node-version:
+                    - "14.15"
+
+                environment:
+                    - "development"
+
+        steps:
+            # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
+            # see https://github.com/rectorphp/rector/commit/d395e1c28b8e6a56711dcc2e10490a82965850e4
+            -   if: github.actor != 'dependabot[bot]'
+                name: "Checkout"
+                uses: "actions/checkout@v2.4.0"
+                with:
+                    ref: "${{ github.head_ref }}"
+                    # Must be used to be able to commit changed files
+                    token: "${{ secrets.BOT_TOKEN }}"
+
+            # in forks, the token is not available - so we cannot use it
+            -   if: github.actor == 'dependabot[bot]'
+                name: "Checkout"
+                uses: "actions/checkout@v2.4.0"
+                with:
+                    ref: "${{ github.head_ref }}"
+
+            -
+                name: "Install Node.js"
+                uses: "actions/setup-node@v2.4.1"
+                with:
+                    node-version: "${{ matrix.node-version }}"
+                    cache: "yarn" # use 'npm' for npm commands
+
+            -
+                name: "Show node version"
+                run: "node --version"
+
+            -
+                name: "Show yarn version"
+                run: "yarn --version"
+
+            -
+                name: "Install dependencies with yarn"
+                run: "yarn install"
+
+            -
+                name: "Run eslint"
+                run: "yarn run cs"
+
+            -
+                name: "Commit files fixed with eslint"
+                uses: "stefanzweifel/git-auto-commit-action@v4.12.0"
+                with:
+                    branch: "${{ github.head_ref }}"
+                    commit_author: "${{ env.BOT_NAME }} <${{ env.BOT_EMAIL }}>"
+                    commit_message: "Fix: Run 'yarn run cs'"
+                    commit_user_email: "${{ env.BOT_EMAIL }}"
+                    commit_user_name: "${{ env.BOT_NAME }}"
+
+    build:
+        name: "Build"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                node-version:
+                    - "14.15"
+
+        steps:
+            -
+                name: "Checkout"
+                uses: "actions/checkout@v2.4.0"
+                with:
+                    ref: "${{ github.head_ref }}"
+
+            -
+                name: "Install Node.js"
+                uses: "actions/setup-node@v2.4.1"
+                with:
+                    node-version: "${{ matrix.node-version }}"
+                    cache: "yarn" # use 'npm' for npm commands
+
+            -
+                name: "Install dependencies with yarn"
+                run: "yarn install"
+
+            -
+                name: "Build application for production environment with webpack"
+                run: "yarn run build"
