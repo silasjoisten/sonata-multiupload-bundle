@@ -1,0 +1,27 @@
+extends: "default"
+
+ignore: |
+    .build/
+    bin/.phpunit/
+    vendor/
+    node_modules/
+
+rules:
+    braces: "disable"
+    brackets: "disable"
+    comments-indentation: "disable"
+    comments: "disable"
+    colons:
+        max-spaces-after: -1
+        max-spaces-before: 0
+    document-end:
+        present: false
+    document-start:
+        present: false
+    hyphens: "disable"
+    indentation: "disable"
+    line-length: "disable"
+
+yaml-files:
+    - '*.yaml'
+    - '*.yml'
