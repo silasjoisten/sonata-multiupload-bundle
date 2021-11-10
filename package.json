@@ -3,14 +3,20 @@
     "dm-file-uploader": "^1.0.2"
   },
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.27.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1"
+    "@symfony/webpack-encore": "^1.6.1",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^12.3.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
   },
   "scripts": {
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",
-    "build": "encore production"
+    "build": "encore production",
+    "cs": "eslint --ext .js ./src/Resources/public/js --fix"
   }
 }
