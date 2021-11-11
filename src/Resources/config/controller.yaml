@@ -1,4 +1,17 @@
 services:
     SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController:
-        arguments: ['@sonata.media.manager.media']
+        arguments:
+            $mediaManager: '@sonata.media.manager.media'
+            $mediaAdmin: '@sonata.media.admin.media'
+            $mediaProviderPool: '@sonata.media.pool'
+            int $maxUploadSize: '%int:sonata_multi_upload.max_upload_filesize%'
+            string $redirectTo: '%sonata_multi_upload.redirect_to%'
         tags: ['controller.service_arguments']
+
+
+    sonata.media.controller.media.admin:
+        class: 'SilasJoisten\Sonata\MultiUploadBundle\Controller\MediaAdminController'
+        tags: ['container.service_subscriber']
+        public: true
+        calls:
+            - setContainer: [ '@Psr\Container\ContainerInterface' ]
