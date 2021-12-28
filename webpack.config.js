@@ -1,28 +1,29 @@
-const Encore = require('@symfony/webpack-encore')
+var Encore = require('@symfony/webpack-encore');
 
 Encore
-// the project directory where compiled assets will be stored
-  .setOutputPath('./src/Resources/public/dist/')
-// the public path used by the web server to access the previous directory
-  .setPublicPath('/')
-  .cleanupOutputBeforeBuild()
-  .enableSourceMaps(!Encore.isProduction())
-// uncomment to create hashed filenames (e.g. app.abc123.css)
-// .enableVersioning(Encore.isProduction())
-  .disableSingleRuntimeChunk()
-// uncomment to define the assets of the project
-  .addEntry('sonata-multiupload', './src/Resources/public/js/app.js')
+    // the project directory where compiled assets will be stored
+    .setOutputPath('./src/Resources/public/dist/')
+    // the public path used by the web server to access the previous directory
+    .setPublicPath('/')
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    // uncomment to create hashed filenames (e.g. app.abc123.css)
+    // .enableVersioning(Encore.isProduction())
+    .disableSingleRuntimeChunk()
+    // uncomment to define the assets of the project
+     .addEntry('sonata-multiupload', './src/Resources/public/js/app.js')
 
-// uncomment if you use Sass/SCSS files
-  .enableSassLoader()
+    // uncomment if you use Sass/SCSS files
+    .enableSassLoader()
 
-// uncomment for legacy applications that require $/jQuery as a global variable
-// .autoProvidejQuery()
+    // uncomment for legacy applications that require $/jQuery as a global variable
+    // .autoProvidejQuery()
+;
 
-const config = Encore.getWebpackConfig()
+var config = Encore.getWebpackConfig();
 
 config.externals = {
-  jquery: 'jQuery',
-}
+    jquery: 'jQuery'
+};
 
-module.exports = config
+module.exports = config;
