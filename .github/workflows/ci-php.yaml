@@ -16,7 +16,7 @@ on: # yamllint disable-line rule:truthy
 env:
     BOT_EMAIL: "silasjoisten@gmail.com"
     BOT_NAME: "Silas Joisten"
-    REQUIRED_PHP_EXTENSIONS: "ctype, filter, hash, iconv, json"
+    REQUIRED_PHP_EXTENSIONS: "ctype, filter, hash, iconv, json, pdo_pgsql"
 
 jobs:
     coding-standards:
