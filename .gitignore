@@ -7,4 +7,3 @@ npm-debug.log
 yarn-error.log
 
 /phpunit.xml
-composer.lock
