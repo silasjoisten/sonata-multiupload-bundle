@@ -74,7 +74,7 @@ jobs:
 
             -
                 name: "Commit files fixed with eslint"
-                uses: "stefanzweifel/git-auto-commit-action@v4.12.0"
+                uses: "stefanzweifel/git-auto-commit-action@v4.13.0"
                 with:
                     branch: "${{ github.head_ref }}"
                     commit_author: "${{ env.BOT_NAME }} <${{ env.BOT_EMAIL }}>"
