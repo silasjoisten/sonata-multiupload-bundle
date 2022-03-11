@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilasJoisten\Sonata\MultiUploadBundle;
 
 use SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection\Compiler\MultiUploadCompilerPass;

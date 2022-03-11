@@ -2,42 +2,34 @@
 
 namespace SilasJoisten\Sonata\MultiUploadBundle\Tests\DependencyInjection\Compiler;
 
-use PHPUnit\Framework\TestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection\Compiler\MultiUploadCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use SilasJoisten\Sonata\MultiUploadBundle\Pool\ProviderChain;
+use Sonata\MediaBundle\Provider\ImageProvider;
 use Symfony\Component\DependencyInjection\Definition;
 
-class MultiUploadCompilerPassTest extends TestCase
+class MultiUploadCompilerPassTest extends AbstractContainerBuilderTestCase
 {
-    public function testProcess()
+    protected function setUp(): void
     {
-        $definition = $this->createMock(Definition::class);
+        parent::setUp();
 
-        $container = $this->createMock(ContainerBuilder::class);
-        $container
-            ->expects($this->once())
-            ->method('getDefinition')
-            ->with('sonata.media.provider.image')
-            ->willReturn($definition);
+        $this->container->addCompilerPass(new MultiUploadCompilerPass());
+    }
 
-        $taggedServices = [
-            'sonata.media.provider.image' => [0 => ['multi_upload' => true]],
-            'sonata.media.provider.youtube' => [0 => ['multi_upload' => false]],
-            'sonata.media.provider.vimeo' => [],
-        ];
+    public function testProcess(): void
+    {
+        $this->container->prependExtensionConfig('sonata_multi_upload', [
+            'providers' => [ImageProvider::class],
+        ]);
 
-        $container
-            ->expects($this->once())
-            ->method('findTaggedServiceIds')
-            ->with('sonata.media.provider')
-            ->willReturn($taggedServices);
+        $definition = new Definition();
+        $definition->setClass(ImageProvider::class);
 
-        $definition
-            ->expects($this->once())
-            ->method('addMethodCall')
-            ->with('setMultiUpload', [true]);
+        $this->setDefinition(ImageProvider::class, $definition);
 
-        $compilerPass = new MultiUploadCompilerPass();
-        $compilerPass->process($container);
+        $this->compile();
+
+        $this->assertContainerBuilderHasService(ProviderChain::class);
     }
 }

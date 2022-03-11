@@ -1,23 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection\Compiler;
 
+use SilasJoisten\Sonata\MultiUploadBundle\Pool\ProviderChain;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\Reference;
 
-class MultiUploadCompilerPass implements CompilerPassInterface
+final class MultiUploadCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        foreach ($container->findTaggedServiceIds('sonata.media.provider') as $id => $attributes) {
-            foreach ($attributes as $attribute) {
-                if (($attribute['multi_upload'] ?? false) === true) {
-                    $container->getDefinition($id)->addMethodCall('setMultiUpload', [$attribute['multi_upload']]);
-                }
+        $config = $container->getExtensionConfig('sonata_multi_upload');
+
+        $definiton = new Definition();
+        $definiton->setPublic(true);
+        $definiton->setClass(ProviderChain::class);
+
+        foreach ($config[0]['providers'] as $providerName) {
+            if (!$container->has($providerName)) {
+                throw new ServiceNotFoundException($providerName);
             }
+
+            $definiton->addMethodCall('addProvider', [new Reference($providerName)]);
         }
+
+        $container->setDefinition($definiton->getClass(), $definiton);
     }
 }

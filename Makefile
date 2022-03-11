@@ -1,10 +1,15 @@
 # vim: set tabstop=8 softtabstop=8 noexpandtab:
 
-install:
-	@composer install --no-interaction
+.PHONY: vendor
+vendor:
+	@symfony composer install --no-interaction
 
+.PHONY: cs
 cs:
-	@php vendor/bin/php-cs-fixer fix
+	@symfony php vendor/bin/php-cs-fixer fix
 
-test:
-	@php vendor/bin/phpunit
+.PHONY: tests
+tests: vendor ## Runs unit tests with phpunit/phpunit
+	mkdir -p .build/phpunit
+	symfony php vendor/bin/phpunit --configuration=phpunit.xml.dist --testsuite=tests
+

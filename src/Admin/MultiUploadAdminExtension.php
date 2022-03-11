@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilasJoisten\Sonata\MultiUploadBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;

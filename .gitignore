@@ -7,4 +7,9 @@ npm-debug.log
 yarn-error.log
 
 /phpunit.xml
+.phpunit.result.cache
+
 composer.lock
+
+.php-version
+.build/

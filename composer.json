@@ -13,7 +13,9 @@
         "php": "^8.0",
         "oskarstark/symfony-http-responder": "^0.3.0",
         "sonata-project/admin-bundle": "^4.2",
-        "sonata-project/media-bundle": "^4.0.0-alpha1"
+        "sonata-project/media-bundle": "^4.1",
+        "symfony/twig-bridge": "^4.4 || ^5.3 || ^6.0",
+        "twig/twig": "^2.6 || ^3.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.11",
