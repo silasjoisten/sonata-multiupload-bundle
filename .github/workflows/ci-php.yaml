@@ -139,4 +139,4 @@ jobs:
 
             -
                 name: "Run unit tests with phpunit/phpunit"
-                run: "vendor/bin/phpunit --testsuite=unit --coverage-clover=.build/phpunit/coverage-unit.xml"
+                run: "SYMFONY_DEPRECATIONS_HELPER=weak vendor/bin/phpunit --testsuite=tests --coverage-clover=.build/phpunit/coverage-unit.xml"

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilasJoisten\Sonata\MultiUploadBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
@@ -23,5 +25,6 @@ class SonataMultiUploadExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('controller.yaml');
         $loader->load('admin_extensions.yaml');
+        $loader->load('twig.yaml');
     }
 }

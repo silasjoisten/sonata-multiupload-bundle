@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SilasJoisten\Sonata\MultiUploadBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -10,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MultiUploadType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('context', HiddenType::class, ['data' => $options['context'] ?? 'default'])
@@ -18,7 +20,7 @@ class MultiUploadType extends AbstractType
             ->add('binaryContent', FileType::class, ['attr' => ['multiple' => true]]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => '',
@@ -27,7 +29,7 @@ class MultiUploadType extends AbstractType
         ]);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::class;
     }
