@@ -63,57 +63,18 @@ services:
     # ...
 ```
 
-Now add to the service definition of your Provider and add to tag `multi_upload: true` like:
-
+You have do open the configuration file for this bundle and configure the providers which you want to enable multi upload.
 ```yaml
-App\Provider\VideoProvider:
-    arguments:
-        - 'App\Provider\VideoProvider'
-        # ...
-    calls:
-        # ...
-    tags:
-        - { name: sonata.media.provider, multi_upload: true }
+# config/packages/sonata_multi_upload.yaml
+
+sonata_multi_upload:
+  # ...
+  providers:
+    - sonata.media.provider.image
+    - sonata.media.provider.video
 
 ```
 
-If you are using default Sonata `MediaProvider` these arguments are already injected.
-Otherwise be aware that the provider gets `allowedMimeTypes` and `allowedExtensions` injected.
-This arguments will be used by `JavaScript` to validate `MimeType` and `FileExtensions` before the Request starts.
-
-For Example:
-
-```yaml
-App\Provider\VideoProvider:
-    arguments:
-        #- 'App\Provider\VideoProvider'
-        #- '@sonata.media.filesystem.local'
-        #- '@sonata.media.cdn.server'
-        #- '@sonata.media.generator.default'
-        #- '@sonata.media.video.thumbnail'
-        - ['mp4', 'mov', 'flv', 'wmv', 'mxf', 'mkv','m4v','mpg']
-        - ['video/mp4', 'video/quicktime', 'video/x-flv','video/x-ms-wmv','application/mxf','video/x-matroska','video/x-m4v','video/mpeg']
-        # ...
-```
-
-In your provider where you want to use multiupload you need to add the
-`SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait` trait.
-If you dont know how to use them take a look at 
-[PHP trait definintion](http://php.net/manual/en/language.oop5.traits.php)
-
-In the following you see how to use the `MultiUploadTrait`:
-```php
-namespace App\Provider;
-
-use SilasJoisten\Sonata\MultiUploadBundle\Traits\MultiUploadTrait;
-
-final class VideoProvider extends FileProvider
-{
-    use MultiUploadTrait;
-    
-    // ...
-}
-```
 
 Add JavaScript and CSS to SonataAdmin config:
 ```yaml
