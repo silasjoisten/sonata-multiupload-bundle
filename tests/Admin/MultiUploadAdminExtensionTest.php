@@ -16,7 +16,7 @@ class MultiUploadAdminExtensionTest extends TestCase
 {
     public function testConfigureRoutes(): void
     {
-        $admin = new FakeAdmin(FakeAdmin::class, Fake::class, '');
+        $admin = new FakeAdmin();
         $admin->setRouteBuilder(new PathInfoBuilder(new AuditManager(new Container())));
         $admin->setSecurityHandler(new NoopSecurityHandler());
 
