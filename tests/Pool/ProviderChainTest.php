@@ -42,6 +42,9 @@ class ProviderChainTest extends TestCase
 
         self::assertEmpty($chain->getProviders());
 
+        $provider = $this->createMock(MediaProviderInterface::class);
+        $provider->method('getName')->willReturn('sample-name');
+
         self::assertFalse($chain->hasProvider($provider));
     }
 
