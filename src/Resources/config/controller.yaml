@@ -4,8 +4,8 @@ services:
             $mediaManager: '@sonata.media.manager.media'
             $mediaAdmin: '@sonata.media.admin.media'
             $mediaProviderPool: '@sonata.media.pool'
-            int $maxUploadSize: '%int:sonata_multi_upload.max_upload_filesize%'
-            string $redirectTo: '%sonata_multi_upload.redirect_to%'
+            $maxUploadSize: '%int:sonata_multi_upload.max_upload_filesize%'
+            $redirectTo: '%sonata_multi_upload.redirect_to%'
         tags: ['controller.service_arguments']
 
 
