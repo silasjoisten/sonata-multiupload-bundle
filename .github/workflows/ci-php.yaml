@@ -30,22 +30,8 @@ jobs:
                     - "8.0"
 
         steps:
-            # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
-            # see https://github.com/rectorphp/rector/commit/d395e1c28b8e6a56711dcc2e10490a82965850e4
-            -   if: github.actor != 'dependabot[bot]'
-                name: "Checkout"
+            -   name: "Checkout"
                 uses: "actions/checkout@v2.4.0"
-                with:
-                    ref: "${{ github.head_ref }}"
-                    # Must be used to be able to commit changed files
-                    token: "${{ secrets.BOT_TOKEN }}"
-
-            # in forks, the token is not available - so we cannot use it
-            -   if: github.actor == 'dependabot[bot]'
-                name: "Checkout"
-                uses: "actions/checkout@v2.4.0"
-                with:
-                    ref: "${{ github.head_ref }}"
 
             -
                 name: "Install PHP with extensions"
