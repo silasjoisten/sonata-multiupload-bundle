@@ -29,20 +29,20 @@ final class MultiUploadController extends CRUDController
 
     public function __construct(
         FormFactoryInterface $formFactory,
-        ManagerInterface     $mediaManager,
-        MediaAdmin           $mediaAdmin,
-        Pool                 $mediaProviderPool,
-        Responder            $responder,
-        int                  $maxUploadSize,
+        ManagerInterface $mediaManager,
+        MediaAdmin $mediaAdmin,
+        Pool $mediaProviderPool,
+        Responder $responder,
+        int $maxUploadSize,
         ?string $redirectTo
     ) {
-        $this->formFactory =  $formFactory;
-        $this->mediaManager =  $mediaManager;
-        $this->mediaAdmin =  $mediaAdmin;
-        $this->mediaProviderPool =  $mediaProviderPool;
-        $this->responder =  $responder;
-        $this->maxUploadSize =  $maxUploadSize;
-        $this->redirectTo =  $redirectTo;
+        $this->formFactory = $formFactory;
+        $this->mediaManager = $mediaManager;
+        $this->mediaAdmin = $mediaAdmin;
+        $this->mediaProviderPool = $mediaProviderPool;
+        $this->responder = $responder;
+        $this->maxUploadSize = $maxUploadSize;
+        $this->redirectTo = $redirectTo;
     }
 
     public function multiUpload(Request $request): Response
