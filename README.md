@@ -12,6 +12,9 @@ silasjoisten/sonata-multiupload-bundle
 * [4.x (latest)](https://github.com/silasjoisten/sonata-multiupload-bundle)
 * [3.x](https://github.com/silasjoisten/sonata-multiupload-bundle/tree/3.x)
 
+## Sample
+Checkout the [Sample Project](https://github.com/silasjoisten/sonata-sample-project)
+
 ## Installation
 
 ### Step 1: Download the Bundle
