@@ -13,7 +13,6 @@ use Sonata\MediaBundle\Provider\MediaProviderInterface;
 use Sonata\MediaBundle\Provider\Pool;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -57,7 +56,7 @@ final class MultiUploadController
         $media->setProviderName($providerName);
         $this->mediaManager->save($media);
 
-        return new JsonResponse([
+        return $this->responder->json([
             'status' => 'ok',
             'path' => $provider->generatePublicUrl($media, MediaProviderInterface::FORMAT_ADMIN),
             'edit' => $this->mediaAdmin->generateUrl('edit', ['id' => $media->getId()]),
