@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace SilasJoisten\Sonata\MultiUploadBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
+use Sonata\MediaBundle\Controller\MediaAdminController as SonataMediaAdminController;
 use Sonata\MediaBundle\Provider\Pool;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sonata\MediaBundle\Controller\MediaAdminController as SonataMediaAdminController;
 
 /**
  * @phpstan-extends CRUDController<\Sonata\MediaBundle\Model\MediaInterface>
