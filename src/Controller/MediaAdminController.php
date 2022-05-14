@@ -14,9 +14,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class MediaAdminController extends CRUDController
 {
+    private Pool $pool;
+
     public function __construct(
-        private Pool $pool,
+        Pool $pool
     ) {
+        $this->pool = $pool;
     }
 
     public function createAction(Request $request): Response
