@@ -7,6 +7,11 @@ silasjoisten/sonata-multiupload-bundle
 [![License](https://poser.pugx.org/silasjoisten/sonata-multiupload-bundle/license)](https://packagist.org/packages/silasjoisten/sonata-multiupload-bundle)
 [![codecov](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle/branch/master/graph/badge.svg)](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle)
 
+## Versions
+
+* [4.x (latest)](https://github.com/silasjoisten/sonata-multiupload-bundle)
+* [3.x](https://github.com/silasjoisten/sonata-multiupload-bundle/tree/3.x)
+
 ## Installation
 
 ### Step 1: Download the Bundle
@@ -69,12 +74,12 @@ Add JavaScript and CSS to SonataAdmin config:
 # config/packages/sonata_admin.yaml
 
 sonata_admin:
-    assets:
-        extra_stylesheets:
-            - bundles/sonatamultiupload/dist/sonata-multiupload.css
+  assets:
+    extra_stylesheets:
+      - bundles/sonatamultiupload/dist/sonata-multiupload.css
 
-        extra_javascripts:
-            - bundles/sonatamultiupload/dist/sonata-multiupload.js
+    extra_javascripts:
+      - bundles/sonatamultiupload/dist/sonata-multiupload.js
 ```
 
 #### OPTIONAL
@@ -83,7 +88,7 @@ sonata_admin:
 # config/packages/sonata_multi_upload.yaml
 
 sonata_multi_upload:
-    max_upload_filesize: 3000000 # 3MB the default value is 0 -> allow every size
+  max_upload_filesize: 3000000 # 3MB the default value is 0 -> allow every size
 ```
 
 There is an option `redirect_to` which allows you to redirect after complete upload to your configured page.
@@ -92,85 +97,140 @@ There is an option `redirect_to` which allows you to redirect after complete upl
 # config/packages/sonata_multi_upload.yaml
 
 sonata_multi_upload:
-    redirect_to: 'admin_sonata_media_media_list'
+  redirect_to: 'admin_sonata_media_media_list'
 ```
 
-**HINT:** You can create a controller action in your `MediaAdminController` which is called like 
-`createGalleryFromMultiUploadAction`. The MultiUploadBundle passes automatically the id's from the uploaded medias 
-to the redirection route for example: `/foo/bar?idx=%5B70%2C71%2C72%5D` so you can take them and create 
+
+**HINT:** The MultiUploadBundle passes automatically the id's from the uploaded `Media` objects
+to the redirection route for example: `/foo/bar?idx=%5B70%2C71%2C72%5D` so you can take them and create
 a gallery from uploaded medias.
 
-In the following i provide an example:
+### Example: Uploading multiple images and create automatically a `Gallery`
 
-In your `MediaAdminController.php`:
+#### Create controller
+
+The controller takes your request and create in this example a `Gallery` with `GalleryItems` and redirects to the
+edit view of `GalleryAdmin`
+
 ```php
+<?php
+
 namespace App\Controller;
 
-use App\Application\Sonata\MediaBundle\Admin\GalleryAdmin;
-use SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController;
+use App\Entity\SonataMediaGallery;
+use App\Entity\SonataMediaGalleryItem;
+use Sonata\MediaBundle\Admin\GalleryAdmin;
 use Sonata\MediaBundle\Entity\MediaManager;
 use Sonata\MediaBundle\Entity\GalleryManager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
-final class MediaAdminController extends MultiUploadController
+final class CreateGalleryAction
 {
-    public function createGalleryAction(Request $request, MediaManager $mediaManager, GalleryManager $galleryManager, GalleryAdmin $galleryAdmin): RedirectResponse
+    public function __construct(
+        private MediaManager   $mediaManager,
+        private GalleryManager $galleryManager,
+        private GalleryAdmin   $galleryAdmin
+    ) {
+    }
+
+    public function __invoke(Request $request): RedirectResponse
     {
         $idx = $request->query->get('idx');
         $idx = json_decode($idx);
-    
-        $gallery = $galleryManager->create();
+
+        /** @var SonataMediaGallery $gallery */
+        $gallery = $this->galleryManager->create();
         $gallery->setName('Auto Created Gallery');
         $gallery->setEnabled(false);
         $gallery->setContext('default');
-    
+
         foreach ($idx as $id) {
-            $media = $mediaManager->find($id);
-            
-            $galleryHasMedia = new GalleryHasMedia();
+            $media = $this->mediaManager->find($id);
+
+            $galleryHasMedia = new SonataMediaGalleryItem();
             $galleryHasMedia->setGallery($gallery);
             $galleryHasMedia->setMedia($media);
-            $gallery->addGalleryHasMedia($galleryHasMedia);
+            $gallery->addGalleryItem($galleryHasMedia);
         }
-    
-        $galleryManager->save($gallery);
-    
-        return $this->redirect($galleryAdmin->generateObjectUrl('edit', $gallery));
+
+        $this->galleryManager->save($gallery);
+
+        return new RedirectResponse($this->galleryAdmin->generateObjectUrl('edit', $gallery));
     }
 }
+
+```
+
+#### Register route
+
+If you already override the default `MediaAdmin` you can add the route in the admin class via
+```php
+   protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        $collection->add('create_gallery', 'multi-upload/create-gallery', [
+            '_controller' => CreateGalleryAction::class,
+        ]);
+    }
+```
+
+otherwise you can create an `AdminExtension` like the following:
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Admin\Extension;
+
+use App\Controller\CreateGalleryAction;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
+
+final class MediaAddRouteExtension extends AbstractAdminExtension
+{
+    public function configureRoutes(AdminInterface $admin, RouteCollectionInterface $collection): void
+    {
+        $collection->add('create_gallery', 'multi-upload/create-gallery', [
+            '_controller' => CreateGalleryAction::class,
+        ]);
+    }
+}
+
+```
+
+and register this extension in your `config/services.yaml`
+
+```yaml
+services:
+    # ...
+    App\Admin\Extension\MediaAddRouteExtension:
+        tags:
+            - { name: sonata.admin.extension, target: sonata.media.admin.media }
+```
+
+Now configure the `redirect_to` in `config/packages/sonata_multi_upload.yaml`
+
+```yaml
+sonata_multi_upload:
+    redirect_to: 'admin_app_sonatamediamedia_create_gallery'
 ```
 
 Maybe you need to create an alias for `MediaManager` and `GalleryManager` like:
 ```yaml
 # config/services.yaml
 services:
-    Sonata\MediaBundle\Entity\MediaManager:
-        alias: sonata.media.manager.media
+  Sonata\MediaBundle\Entity\MediaManager:
+    alias: sonata.media.manager.media
 
-    Sonata\MediaBundle\Entity\GalleryManager:
-        alias: sonata.media.manager.gallery
+  Sonata\MediaBundle\Entity\GalleryManager:
+    alias: sonata.media.manager.gallery
 
-    App\Application\Sonata\MediaBundle\Admin\GalleryAdmin:
-        alias: sonata.media.admin.gallery
+  Sonata\MediaBundle\Admin\GalleryAdmin:
+    alias: sonata.media.admin.gallery
 ```
 
-
-Register Route in `MediaAdmin.php`:
-
-```php
-protected function configureRoutes(RouteCollection $collection): void
-{
-    $collection->add('create_gallery', 'create/gallery/uploaded/medias');
-}
-```
-
-And update the config accordingly:
-```yaml
-# config/packages/sonata_multi_upload.yaml
-
-sonata_multi_upload:
-    redirect_to: 'admin_sonata_media_media_create_gallery'
-```
-This is how you can create a Gallery by uploaded Medias.
+Thats it.
 
 **Notice that the uploader won't work for Providers like: YouTubeProvider, VimeoProvider!**
 
@@ -178,5 +238,5 @@ This is how you can create a Gallery by uploaded Medias.
 
 ![multiupload](docs/images/multiupload-bundle.gif)
 
-Used Library: 
+Used Library:
 * [jQuery Upload](https://github.com/danielm/uploader)
