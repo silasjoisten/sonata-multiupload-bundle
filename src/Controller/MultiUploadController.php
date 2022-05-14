@@ -57,7 +57,7 @@ final class MultiUploadController
         $media->setProviderName($providerName);
         $this->mediaManager->save($media);
 
-        return new JsonResponse([
+        return $this->responder->json([
             'status' => 'ok',
             'path' => $provider->generatePublicUrl($media, MediaProviderInterface::FORMAT_ADMIN),
             'edit' => $this->mediaAdmin->generateUrl('edit', ['id' => $media->getId()]),

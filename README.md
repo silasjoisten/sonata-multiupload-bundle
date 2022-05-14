@@ -51,19 +51,7 @@ return [
 
 ### Step 3: Configuration
 
-First you need to override the default `MediaAdminController.php` via:
-
-```yaml
-# config/services.yaml
-
-parameters:
-    sonata.media.admin.media.controller: SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController
-
-services:
-    # ...
-```
-
-You have do open the configuration file for this bundle and configure the providers which you want to enable multi upload.
+You have to open the configuration file for this bundle and configure the providers which you want to enable multi upload.
 ```yaml
 # config/packages/sonata_multi_upload.yaml
 
