@@ -7,6 +7,11 @@ silasjoisten/sonata-multiupload-bundle
 [![License](https://poser.pugx.org/silasjoisten/sonata-multiupload-bundle/license)](https://packagist.org/packages/silasjoisten/sonata-multiupload-bundle)
 [![codecov](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle/branch/master/graph/badge.svg)](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle)
 
+## Versions
+
+* [4.x (latest)](https://github.com/silasjoisten/sonata-multiupload-bundle)
+* [3.x](https://github.com/silasjoisten/sonata-multiupload-bundle/tree/3.x)
+
 ## Installation
 
 ### Step 1: Download the Bundle
