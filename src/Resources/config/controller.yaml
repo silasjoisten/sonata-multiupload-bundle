@@ -8,10 +8,10 @@ services:
             $redirectTo: '%sonata_multi_upload.redirect_to%'
         tags: ['controller.service_arguments']
 
-
-    sonata.media.controller.media.admin:
-        class: 'SilasJoisten\Sonata\MultiUploadBundle\Controller\MediaAdminController'
-        tags: ['container.service_subscriber']
+    SilasJoisten\Sonata\MultiUploadBundle\Controller\MediaAdminController:
+        decorates: 'Sonata\MediaBundle\Controller\MediaAdminController'
+        arguments: ['@.inner']
         public: true
+        tags: [ 'container.service_subscriber' ]
         calls:
             - setContainer: [ '@Psr\Container\ContainerInterface' ]

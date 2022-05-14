@@ -8,12 +8,21 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\MediaBundle\Provider\Pool;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sonata\MediaBundle\Controller\MediaAdminController as SonataMediaAdminController;
 
 /**
  * @phpstan-extends CRUDController<\Sonata\MediaBundle\Model\MediaInterface>
  */
 final class MediaAdminController extends CRUDController
 {
+    private SonataMediaAdminController $decorated;
+
+    public function __construct(
+        SonataMediaAdminController $decorated
+    ) {
+        $this->decorated = $decorated;
+    }
+
     public function createAction(Request $request): Response
     {
         $this->admin->checkAccess('create');
@@ -31,5 +40,10 @@ final class MediaAdminController extends CRUDController
         }
 
         return parent::createAction($request);
+    }
+
+    public function listAction(Request $request): Response
+    {
+        return $this->decorated->listAction($request);
     }
 }

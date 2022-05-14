@@ -18,15 +18,30 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class MultiUploadController
 {
+    private FormFactoryInterface $formFactory;
+    private ManagerInterface $mediaManager;
+    private MediaAdmin $mediaAdmin;
+    private Pool $mediaProviderPool;
+    private Responder $responder;
+    private int $maxUploadSize;
+    private string $redirectTo;
+
     public function __construct(
-        private FormFactoryInterface $formFactory,
-        private ManagerInterface $mediaManager,
-        private MediaAdmin $mediaAdmin,
-        private Pool $mediaProviderPool,
-        private Responder $responder,
-        private int $maxUploadSize,
-        private string $redirectTo,
+        FormFactoryInterface $formFactory,
+        ManagerInterface $mediaManager,
+        MediaAdmin $mediaAdmin,
+        Pool $mediaProviderPool,
+        Responder $responder,
+        int $maxUploadSize,
+        string $redirectTo
     ) {
+        $this->formFactory = $formFactory;
+        $this->mediaManager = $mediaManager;
+        $this->mediaAdmin = $mediaAdmin;
+        $this->mediaProviderPool = $mediaProviderPool;
+        $this->responder = $responder;
+        $this->maxUploadSize = $maxUploadSize;
+        $this->redirectTo = $redirectTo;
     }
 
     public function __invoke(Request $request): Response

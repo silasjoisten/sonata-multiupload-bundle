@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "oskarstark/symfony-http-responder": "^1.0.0",
+        "php": "^7.4 || ^8.0",
+        "oskarstark/symfony-http-responder": "0.5.0 || ^1.0.0",
         "sonata-project/admin-bundle": "^4.2",
         "sonata-project/media-bundle": "^4.1",
         "symfony/twig-bridge": "^4.4 || ^5.3 || ^6.0",
