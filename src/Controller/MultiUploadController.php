@@ -6,6 +6,7 @@ namespace SilasJoisten\Sonata\MultiUploadBundle\Controller;
 
 use OskarStark\Symfony\Http\Responder;
 use SilasJoisten\Sonata\MultiUploadBundle\Form\MultiUploadType;
+use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\Doctrine\Model\ManagerInterface;
 use Sonata\MediaBundle\Admin\ORM\MediaAdmin;
 use Sonata\MediaBundle\Model\MediaInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class MultiUploadController
+final class MultiUploadController extends CRUDController
 {
     public function __construct(
         private FormFactoryInterface $formFactory,
@@ -25,11 +26,11 @@ final class MultiUploadController
         private Pool $mediaProviderPool,
         private Responder $responder,
         private int $maxUploadSize,
-        private string $redirectTo,
+        private ?string $redirectTo = null,
     ) {
     }
 
-    public function __invoke(Request $request): Response
+    public function multiUpload(Request $request): Response
     {
         $this->mediaAdmin->checkAccess('create');
 
@@ -39,8 +40,9 @@ final class MultiUploadController
         $provider = $this->mediaProviderPool->getProvider($providerName);
 
         $form = $this->createMultiUploadForm($provider, $context);
+
         if (!$request->files->has('file')) {
-            return $this->responder->render('@SonataMultiUpload/multi_upload.html.twig', [
+            return $this->renderWithExtraParams('@SonataMultiUpload/multi_upload.html.twig', [
                 'action' => 'multi_upload',
                 'form' => $form->createView(),
                 'provider' => $provider,
