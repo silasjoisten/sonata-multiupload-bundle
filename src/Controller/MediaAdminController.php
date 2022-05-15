@@ -23,7 +23,7 @@ final class MediaAdminController extends CRUDController
     {
         $this->admin->checkAccess('create');
 
-        if (null !== $request->query->get('pcode')) {
+        if (null !== $request->query->get('pcode') &&  $request->isXmlHttpRequest()) {
             return $this->renderWithExtraParams('@SonataMedia/MediaAdmin/select_provider.html.twig', [
                 'providers' => $this->pool->getProvidersByContext(
                     $request->get('context', $this->pool->getDefaultContext())
