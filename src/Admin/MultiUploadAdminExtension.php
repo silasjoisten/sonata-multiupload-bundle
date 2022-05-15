@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SilasJoisten\Sonata\MultiUploadBundle\Admin;
 
+use SilasJoisten\Sonata\MultiUploadBundle\Controller\CreateController;
 use SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
@@ -16,5 +17,9 @@ final class MultiUploadAdminExtension extends AbstractAdminExtension
         $collection->add('multi_upload', 'multi-upload', [
             '_controller' => sprintf('%s::multiUpload', MultiUploadController::class),
         ]);
+
+        $collection
+            ->get('create')
+            ->setDefault('_controller', sprintf('%s::createAction', CreateController::class));
     }
 }

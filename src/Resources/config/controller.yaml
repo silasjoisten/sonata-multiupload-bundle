@@ -12,8 +12,7 @@ services:
         autowire: true
         public: true
 
-    SilasJoisten\Sonata\MultiUploadBundle\Controller\MediaAdminController:
-        decorates: 'sonata.media.controller.media.admin'
+    SilasJoisten\Sonata\MultiUploadBundle\Controller\CreateController:
         arguments: ['@sonata.media.pool']
         public: true
         tags: [ 'container.service_subscriber' ]
