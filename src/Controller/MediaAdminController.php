@@ -23,6 +23,15 @@ final class MediaAdminController extends CRUDController
     {
         $this->admin->checkAccess('create');
 
+        if ($request->query->has('pcode') && $request->isXmlHttpRequest()) {
+            return $this->renderWithExtraParams('@SonataMedia/MediaAdmin/select_provider.html.twig', [
+                'providers' => $this->pool->getProvidersByContext(
+                    $request->get('context', $this->pool->getDefaultContext())
+                ),
+                'action' => 'create',
+            ]);
+        }
+
         if (null === $request->get('provider') && $request->isMethod('get')) {
             return $this->renderWithExtraParams('@SonataMultiUpload/select_provider.html.twig', [
                 'providers' => $this->pool->getProvidersByContext(
