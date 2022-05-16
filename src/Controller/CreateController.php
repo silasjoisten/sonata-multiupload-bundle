@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @phpstan-extends CRUDController<\Sonata\MediaBundle\Model\MediaInterface>
  */
-final class MediaAdminController extends CRUDController
+final class CreateController extends CRUDController
 {
     public function __construct(
         private Pool $pool,

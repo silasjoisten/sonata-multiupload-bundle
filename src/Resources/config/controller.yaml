@@ -2,7 +2,6 @@ services:
     SilasJoisten\Sonata\MultiUploadBundle\Controller\MultiUploadController:
         arguments:
             $mediaManager: '@sonata.media.manager.media'
-            $mediaAdmin: '@sonata.media.admin.media'
             $mediaProviderPool: '@sonata.media.pool'
             $maxUploadSize: '%sonata_multi_upload.max_upload_filesize%'
             $redirectTo: '%sonata_multi_upload.redirect_to%'
@@ -12,8 +11,7 @@ services:
         autowire: true
         public: true
 
-    SilasJoisten\Sonata\MultiUploadBundle\Controller\MediaAdminController:
-        decorates: 'sonata.media.controller.media.admin'
+    SilasJoisten\Sonata\MultiUploadBundle\Controller\CreateController:
         arguments: ['@sonata.media.pool']
         public: true
         tags: [ 'container.service_subscriber' ]

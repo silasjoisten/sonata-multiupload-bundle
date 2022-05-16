@@ -13,3 +13,8 @@ composer.lock
 
 .php-version
 .build/
+
+###> intellij IDE ###
+/.idea
+sonata-multiupload-bundle.iml
+###> intellij IDE ###

@@ -8,7 +8,6 @@ use OskarStark\Symfony\Http\Responder;
 use SilasJoisten\Sonata\MultiUploadBundle\Form\MultiUploadType;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\Doctrine\Model\ManagerInterface;
-use Sonata\MediaBundle\Admin\ORM\MediaAdmin;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\MediaProviderInterface;
 use Sonata\MediaBundle\Provider\Pool;
@@ -22,7 +21,6 @@ final class MultiUploadController extends CRUDController
     public function __construct(
         private FormFactoryInterface $formFactory,
         private ManagerInterface $mediaManager,
-        private MediaAdmin $mediaAdmin,
         private Pool $mediaProviderPool,
         private Responder $responder,
         private int $maxUploadSize,
@@ -32,7 +30,7 @@ final class MultiUploadController extends CRUDController
 
     public function multiUpload(Request $request): Response
     {
-        $this->mediaAdmin->checkAccess('create');
+        $this->admin->checkAccess('create');
 
         $providerName = $request->query->get('provider');
         $context = $request->query->get('context', 'default');
@@ -61,7 +59,7 @@ final class MultiUploadController extends CRUDController
         return $this->responder->json([
             'status' => 'ok',
             'path' => $provider->generatePublicUrl($media, MediaProviderInterface::FORMAT_ADMIN),
-            'edit' => $this->mediaAdmin->generateUrl('edit', ['id' => $media->getId()]),
+            'edit' => $this->admin->generateUrl('edit', ['id' => $media->getId()]),
             'id' => $media->getId(),
         ]);
     }
@@ -70,7 +68,7 @@ final class MultiUploadController extends CRUDController
     {
         return $this->formFactory->create(MultiUploadType::class, null, [
             'data_class' => $this->mediaManager->getClass(),
-            'action' => $this->mediaAdmin->generateUrl('multi_upload', ['provider' => $provider->getName()]),
+            'action' => $this->admin->generateUrl('multi_upload', ['provider' => $provider->getName()]),
             'provider' => $provider->getName(),
             'context' => $context,
         ]);
