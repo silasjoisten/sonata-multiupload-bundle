@@ -7,6 +7,9 @@ silasjoisten/sonata-multiupload-bundle
 [![License](https://poser.pugx.org/silasjoisten/sonata-multiupload-bundle/license)](https://packagist.org/packages/silasjoisten/sonata-multiupload-bundle)
 [![codecov](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle/branch/master/graph/badge.svg)](https://codecov.io/gh/silasjoisten/sonata-multiupload-bundle)
 
+## Intro
+It's just a fork used for allow sonata 3.x with php8.
+Because, the upgrade from 3.3 to 3.4 version doesn't allow this transition.
 ## Installation
 
 ### Step 1: Download the Bundle
